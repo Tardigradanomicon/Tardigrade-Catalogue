@@ -129,11 +129,13 @@ function showResult() {
 
             ${matches.map(species => `
 
-                <p>
-                    <strong>
-                        <i>${species.scientific_name}</i>
-                    </strong>
-                </p>
+               <p>
+    <strong>
+        <a href="${species.page}">
+            <i>${species.scientific_name}</i>
+        </a>
+    </strong>
+</p>
 
             `).join("")}
 
