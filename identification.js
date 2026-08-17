@@ -2,9 +2,9 @@ let speciesData = {};
 let observations = {};
 
 
-// --------------------------------------------------
-// Load species data
-// --------------------------------------------------
+// ==================================================
+// LOAD SPECIES DATA
+// ==================================================
 
 fetch("data/species.json")
     .then(response => response.json())
@@ -22,9 +22,9 @@ fetch("data/species.json")
     });
 
 
-// --------------------------------------------------
-// Main question renderer
-// --------------------------------------------------
+// ==================================================
+// MAIN QUESTION RENDERER
+// ==================================================
 
 function renderQuestions() {
 
@@ -32,23 +32,43 @@ function renderQuestions() {
 
     questions.innerHTML = `
 
-        <!-- 01 ENVIRONMENT -->
+        <!-- ==========================================
+             01 ENVIRONMENT
+        =========================================== -->
 
         <div class="identifier-question">
 
-            <h2>
-                01. What environment was the specimen collected from?
-            </h2>
+            <h2>01. Environment</h2>
+
+            <h3>
+                What environment was the specimen collected from?
+            </h3>
 
             <div class="identifier-options">
 
-                ${choiceButton("Marine", "environment", "marine")}
+                ${choiceButton(
+                    "Marine",
+                    "environment",
+                    "marine"
+                )}
 
-                ${choiceButton("Freshwater", "environment", "freshwater")}
+                ${choiceButton(
+                    "Freshwater",
+                    "environment",
+                    "freshwater"
+                )}
 
-                ${choiceButton("Terrestrial", "environment", "terrestrial")}
+                ${choiceButton(
+                    "Terrestrial",
+                    "environment",
+                    "terrestrial"
+                )}
 
-                ${choiceButton("Unknown", "environment", "unknown")}
+                ${choiceButton(
+                    "Unknown",
+                    "environment",
+                    "unknown"
+                )}
 
             </div>
 
@@ -57,21 +77,37 @@ function renderQuestions() {
         </div>
 
 
-        <!-- 02 EYES -->
+        <!-- ==========================================
+             02 EYES
+        =========================================== -->
 
         <div class="identifier-question">
 
-            <h2>
-                02. Are eyes present?
-            </h2>
+            <h2>02. Eyes</h2>
+
+            <h3>
+                Are eyes present?
+            </h3>
 
             <div class="identifier-options">
 
-                ${choiceButton("Present", "eyes_present", true)}
+                ${choiceButton(
+                    "Present",
+                    "eyes_present",
+                    true
+                )}
 
-                ${choiceButton("Absent", "eyes_present", false)}
+                ${choiceButton(
+                    "Absent",
+                    "eyes_present",
+                    false
+                )}
 
-                ${choiceButton("Unknown", "eyes_present", "unknown")}
+                ${choiceButton(
+                    "Unknown",
+                    "eyes_present",
+                    "unknown"
+                )}
 
             </div>
 
@@ -80,21 +116,37 @@ function renderQuestions() {
         </div>
 
 
-        <!-- 03 PLATES -->
+        <!-- ==========================================
+             03 CUTICULAR PLATES
+        =========================================== -->
 
         <div class="identifier-question">
 
-            <h2>
-                03. Are cuticular plates present?
-            </h2>
+            <h2>03. Cuticular plates</h2>
+
+            <h3>
+                Are cuticular plates present?
+            </h3>
 
             <div class="identifier-options">
 
-                ${choiceButton("Present", "plates_present", true)}
+                ${choiceButton(
+                    "Present",
+                    "plates_present",
+                    true
+                )}
 
-                ${choiceButton("Absent", "plates_present", false)}
+                ${choiceButton(
+                    "Absent",
+                    "plates_present",
+                    false
+                )}
 
-                ${choiceButton("Unknown", "plates_present", "unknown")}
+                ${choiceButton(
+                    "Unknown",
+                    "plates_present",
+                    "unknown"
+                )}
 
             </div>
 
@@ -103,21 +155,37 @@ function renderQuestions() {
         </div>
 
 
-        <!-- 04 CLAVAE -->
+        <!-- ==========================================
+             04 CLAVAE
+        =========================================== -->
 
         <div class="identifier-question">
 
-            <h2>
-                04. Are clavae present?
-            </h2>
+            <h2>04. Clavae</h2>
+
+            <h3>
+                Are clavae present?
+            </h3>
 
             <div class="identifier-options">
 
-                ${choiceButton("Present", "clavae_present", true)}
+                ${choiceButton(
+                    "Present",
+                    "clavae_present",
+                    true
+                )}
 
-                ${choiceButton("Absent", "clavae_present", false)}
+                ${choiceButton(
+                    "Absent",
+                    "clavae_present",
+                    false
+                )}
 
-                ${choiceButton("Unknown", "clavae_present", "unknown")}
+                ${choiceButton(
+                    "Unknown",
+                    "clavae_present",
+                    "unknown"
+                )}
 
             </div>
 
@@ -126,7 +194,9 @@ function renderQuestions() {
         </div>
 
 
-        <!-- 05 MEDIAN CIRRUS -->
+        <!-- ==========================================
+             05–09 CIRRI
+        =========================================== -->
 
         ${cirrusQuestion(
             "05",
@@ -134,17 +204,11 @@ function renderQuestions() {
             "median_cephalic"
         )}
 
-
-        <!-- 06 INTERNAL CIRRI -->
-
         ${cirrusQuestion(
             "06",
             "Are internal cephalic cirri present?",
             "internal_cephalic"
         )}
-
-
-        <!-- 07 EXTERNAL CIRRI -->
 
         ${cirrusQuestion(
             "07",
@@ -152,17 +216,11 @@ function renderQuestions() {
             "external_cephalic"
         )}
 
-
-        <!-- 08 LATERAL CIRRI -->
-
         ${cirrusQuestion(
             "08",
             "Are lateral cirri present?",
             "lateral"
         )}
-
-
-        <!-- 09 CIRRUS E -->
 
         ${cirrusQuestion(
             "09",
@@ -171,21 +229,37 @@ function renderQuestions() {
         )}
 
 
-        <!-- 10 OTHER CIRRI -->
+        <!-- ==========================================
+             10 OTHER CIRRI
+        =========================================== -->
 
         <div class="identifier-question">
 
-            <h2>
-                10. Are other identifiable cirri present?
-            </h2>
+            <h2>10. Other cirri</h2>
+
+            <h3>
+                Are other identifiable cirri present?
+            </h3>
 
             <div class="identifier-options">
 
-                ${choiceButton("Present", "other_cirri", true)}
+                ${choiceButton(
+                    "Present",
+                    "other_cirri",
+                    true
+                )}
 
-                ${choiceButton("Absent", "other_cirri", false)}
+                ${choiceButton(
+                    "Absent",
+                    "other_cirri",
+                    false
+                )}
 
-                ${choiceButton("Unknown", "other_cirri", "unknown")}
+                ${choiceButton(
+                    "Unknown",
+                    "other_cirri",
+                    "unknown"
+                )}
 
             </div>
 
@@ -194,13 +268,17 @@ function renderQuestions() {
         </div>
 
 
-        <!-- 11 SENSORY SPINES / PAPILLAE -->
+        <!-- ==========================================
+             11 SENSORY STRUCTURES
+        =========================================== -->
 
         <div class="identifier-question">
 
-            <h2>
-                11. Are sensory spines or papillae present?
-            </h2>
+            <h2>11. Sensory spines / papillae</h2>
+
+            <h3>
+                Are sensory spines or papillae present?
+            </h3>
 
             <div class="identifier-options">
 
@@ -229,27 +307,22 @@ function renderQuestions() {
         </div>
 
 
-        <!-- 12 LEG I -->
+        <!-- ==========================================
+             12–15 LEGS
+        =========================================== -->
 
         ${legQuestion("12", "I")}
 
-
-        <!-- 13 LEG II -->
-
         ${legQuestion("13", "II")}
 
-
-        <!-- 14 LEG III -->
-
         ${legQuestion("14", "III")}
-
-
-        <!-- 15 LEG IV -->
 
         ${legQuestion("15", "IV")}
 
 
-        <!-- FIND MATCHES -->
+        <!-- ==========================================
+             FIND MATCHES
+        =========================================== -->
 
         <div class="find-matches-container">
 
@@ -265,31 +338,28 @@ function renderQuestions() {
 
     `;
 
-    updateConditionalQuestions();
+    // Restore the visual state of buttons after initial rendering.
+    restoreSelectedButtons();
 
 }
 
 
-// --------------------------------------------------
-// Button generator
-// --------------------------------------------------
+// ==================================================
+// SINGLE-SELECT BUTTON
+// ==================================================
 
 function choiceButton(label, key, value) {
 
-    const currentValue =
-        getNestedValue(observations, key);
-
-    const isSelected =
-        currentValue !== undefined &&
-        String(currentValue) === String(value);
+    const selected =
+        getNestedValue(observations, key) === value;
 
     return `
         <button
             type="button"
-            class="${isSelected ? "selected" : ""}"
+            class="identifier-choice-button ${selected ? "selected" : ""}"
             data-key="${key}"
             data-value="${String(value)}"
-            onclick='recordAnswer("${key}", ${JSON.stringify(value)})'
+            onclick="recordAnswer('${key}', ${JSON.stringify(value)}, this)"
         >
             ${label}
         </button>
@@ -298,40 +368,37 @@ function choiceButton(label, key, value) {
 }
 
 
-// --------------------------------------------------
-// Cirrus question generator
-// --------------------------------------------------
+// ==================================================
+// CIRRUS QUESTION
+// ==================================================
 
 function cirrusQuestion(number, question, key) {
-
-    const observationKey =
-        "cirri." + key;
 
     return `
 
         <div class="identifier-question">
 
-            <h2>
-                ${number}. ${question}
-            </h2>
+            <h2>${number}. Cirri</h2>
+
+            <h3>${question}</h3>
 
             <div class="identifier-options">
 
                 ${choiceButton(
                     "Present",
-                    observationKey,
+                    "cirri." + key,
                     true
                 )}
 
                 ${choiceButton(
                     "Absent",
-                    observationKey,
+                    "cirri." + key,
                     false
                 )}
 
                 ${choiceButton(
                     "Unknown",
-                    observationKey,
+                    "cirri." + key,
                     "unknown"
                 )}
 
@@ -344,9 +411,9 @@ function cirrusQuestion(number, question, key) {
 }
 
 
-// --------------------------------------------------
-// Leg question generator
-// --------------------------------------------------
+// ==================================================
+// LEG QUESTION
+// ==================================================
 
 function legQuestion(number, leg) {
 
@@ -354,9 +421,7 @@ function legQuestion(number, leg) {
 
         <div class="identifier-question">
 
-            <h2>
-                ${number}. Leg pair ${leg}
-            </h2>
+            <h2>${number}. Leg pair ${leg}</h2>
 
 
             <!-- CLAW COUNT -->
@@ -614,127 +679,118 @@ function legQuestion(number, leg) {
 }
 
 
-// --------------------------------------------------
-// Record answers
-// --------------------------------------------------
+// ==================================================
+// RECORD ANSWER
+// ==================================================
 
-function recordAnswer(key, value) {
+function recordAnswer(key, value, button) {
 
     setNestedValue(observations, key, value);
 
+    // Remove selection from the other buttons belonging
+    // to this question.
+    const parent =
+        button.closest(".identifier-options");
+
+    if (parent) {
+
+        parent
+            .querySelectorAll("button")
+            .forEach(btn => {
+
+                btn.classList.remove("selected");
+
+            });
+
+    }
+
+    // Make the selected answer visibly darker.
+    button.classList.add("selected");
+
     updateConditionalQuestions();
 
-    updateSelectedButtons();
-
 }
 
 
-// --------------------------------------------------
-// Update visual selection state
-// --------------------------------------------------
-
-function updateSelectedButtons() {
-
-    const buttons =
-        document.querySelectorAll(
-            "#questions button[data-key]"
-        );
-
-    buttons.forEach(button => {
-
-        const key =
-            button.dataset.key;
-
-        const buttonValue =
-            button.dataset.value;
-
-        const currentValue =
-            getNestedValue(observations, key);
-
-        if (
-            currentValue !== undefined &&
-            String(currentValue) === buttonValue
-        ) {
-
-            button.classList.add("selected");
-
-        }
-
-        else {
-
-            button.classList.remove("selected");
-
-        }
-
-    });
-
-}
-
-
-// --------------------------------------------------
-// Store nested observation values
-// --------------------------------------------------
+// ==================================================
+// SET NESTED VALUE
+// ==================================================
 
 function setNestedValue(object, path, value) {
 
-    const parts =
-        path.split(".");
+    const parts = path.split(".");
 
-    let current =
-        object;
+    let current = object;
 
-    for (
-        let i = 0;
-        i < parts.length - 1;
-        i++
-    ) {
+    for (let i = 0; i < parts.length - 1; i++) {
 
         if (
-            !current[parts[i]] ||
-            typeof current[parts[i]] !== "object"
+            typeof current[parts[i]] !== "object" ||
+            current[parts[i]] === null
         ) {
 
             current[parts[i]] = {};
 
         }
 
-        current =
-            current[parts[i]];
+        current = current[parts[i]];
 
     }
 
-    current[parts[parts.length - 1]] =
-        value;
+    current[parts[parts.length - 1]] = value;
 
 }
 
 
-// --------------------------------------------------
-// Conditional questions
-// --------------------------------------------------
+// ==================================================
+// GET NESTED VALUE
+// ==================================================
+
+function getNestedValue(object, path) {
+
+    const parts = path.split(".");
+
+    let current = object;
+
+    for (const part of parts) {
+
+        if (
+            current === undefined ||
+            current === null
+        ) {
+
+            return undefined;
+
+        }
+
+        current = current[part];
+
+    }
+
+    return current;
+
+}
+
+
+// ==================================================
+// CONDITIONAL QUESTIONS
+// ==================================================
 
 function updateConditionalQuestions() {
 
-    updateEyeQuestion();
-
-    updatePlateQuestion();
-
-    updateClavaeQuestion();
-
     updateEnvironmentQuestion();
-
+    updateEyeQuestion();
+    updatePlateQuestion();
+    updateClavaeQuestion();
     updateOtherCirriQuestion();
-
     updateSensoryQuestion();
-
-    updateSelectedButtons();
 
 }
 
 
-// --------------------------------------------------
-// Environment
-// --------------------------------------------------
+// ==================================================
+// ENVIRONMENT FOLLOW-UP
+// ==================================================
 
 function updateEnvironmentQuestion() {
 
@@ -743,11 +799,20 @@ function updateEnvironmentQuestion() {
 
     if (!container) return;
 
-
     if (
         observations.environment === "marine" ||
         observations.environment === "freshwater"
     ) {
+
+        const values = [
+            ["Algae", "algae"],
+            ["Sediment", "sediment"],
+            ["Seagrass / aquatic vegetation", "seagrass"],
+            ["Coral / reef substrate", "coral"],
+            ["Rock", "rock"],
+            ["Other", "other"],
+            ["Unknown", "unknown"]
+        ];
 
         container.innerHTML = `
 
@@ -757,53 +822,15 @@ function updateEnvironmentQuestion() {
                     What was the specimen associated with?
                 </h3>
 
-                <p>
-                    Select one.
-                </p>
-
                 <div class="identifier-options">
 
-                    ${choiceButton(
-                        "Algae",
-                        "ecological_association",
-                        "algae"
-                    )}
-
-                    ${choiceButton(
-                        "Sediment",
-                        "ecological_association",
-                        "sediment"
-                    )}
-
-                    ${choiceButton(
-                        "Seagrass / aquatic vegetation",
-                        "ecological_association",
-                        "seagrass"
-                    )}
-
-                    ${choiceButton(
-                        "Coral / reef substrate",
-                        "ecological_association",
-                        "coral"
-                    )}
-
-                    ${choiceButton(
-                        "Rock",
-                        "ecological_association",
-                        "rock"
-                    )}
-
-                    ${choiceButton(
-                        "Other",
-                        "ecological_association",
-                        "other"
-                    )}
-
-                    ${choiceButton(
-                        "Unknown",
-                        "ecological_association",
-                        "unknown"
-                    )}
+                    ${values.map(item =>
+                        multiButton(
+                            item[0],
+                            "ecological_association",
+                            item[1]
+                        )
+                    ).join("")}
 
                 </div>
 
@@ -817,6 +844,16 @@ function updateEnvironmentQuestion() {
         observations.environment === "terrestrial"
     ) {
 
+        const values = [
+            ["Moss", "moss"],
+            ["Lichen", "lichen"],
+            ["Leaf litter", "leaf_litter"],
+            ["Soil", "soil"],
+            ["Vegetation", "vegetation"],
+            ["Other", "other"],
+            ["Unknown", "unknown"]
+        ];
+
         container.innerHTML = `
 
             <div class="identifier-followup">
@@ -825,53 +862,15 @@ function updateEnvironmentQuestion() {
                     What was the specimen associated with?
                 </h3>
 
-                <p>
-                    Select one.
-                </p>
-
                 <div class="identifier-options">
 
-                    ${choiceButton(
-                        "Moss",
-                        "ecological_association",
-                        "moss"
-                    )}
-
-                    ${choiceButton(
-                        "Lichen",
-                        "ecological_association",
-                        "lichen"
-                    )}
-
-                    ${choiceButton(
-                        "Leaf litter",
-                        "ecological_association",
-                        "leaf_litter"
-                    )}
-
-                    ${choiceButton(
-                        "Soil",
-                        "ecological_association",
-                        "soil"
-                    )}
-
-                    ${choiceButton(
-                        "Vegetation",
-                        "ecological_association",
-                        "vegetation"
-                    )}
-
-                    ${choiceButton(
-                        "Other",
-                        "ecological_association",
-                        "other"
-                    )}
-
-                    ${choiceButton(
-                        "Unknown",
-                        "ecological_association",
-                        "unknown"
-                    )}
+                    ${values.map(item =>
+                        multiButton(
+                            item[0],
+                            "ecological_association",
+                            item[1]
+                        )
+                    ).join("")}
 
                 </div>
 
@@ -887,12 +886,14 @@ function updateEnvironmentQuestion() {
 
     }
 
+    restoreSelectedButtons();
+
 }
 
 
-// --------------------------------------------------
-// Eyes
-// --------------------------------------------------
+// ==================================================
+// EYE FOLLOW-UP
+// ==================================================
 
 function updateEyeQuestion() {
 
@@ -901,10 +902,7 @@ function updateEyeQuestion() {
 
     if (!container) return;
 
-
-    if (
-        observations.eyes_present === true
-    ) {
+    if (observations.eyes_present === true) {
 
         container.innerHTML = `
 
@@ -916,37 +914,37 @@ function updateEyeQuestion() {
 
                 <div class="identifier-options">
 
-                    ${choiceButton(
+                    ${multiButton(
                         "Black",
                         "eyes_color",
                         "black"
                     )}
 
-                    ${choiceButton(
+                    ${multiButton(
                         "Brown",
                         "eyes_color",
                         "brown"
                     )}
 
-                    ${choiceButton(
+                    ${multiButton(
                         "Red",
                         "eyes_color",
                         "red"
                     )}
 
-                    ${choiceButton(
+                    ${multiButton(
                         "Orange",
                         "eyes_color",
                         "orange"
                     )}
 
-                    ${choiceButton(
+                    ${multiButton(
                         "Other",
                         "eyes_color",
                         "other"
                     )}
 
-                    ${choiceButton(
+                    ${multiButton(
                         "Unknown",
                         "eyes_color",
                         "unknown"
@@ -966,12 +964,14 @@ function updateEyeQuestion() {
 
     }
 
+    restoreSelectedButtons();
+
 }
 
 
-// --------------------------------------------------
-// Plates
-// --------------------------------------------------
+// ==================================================
+// PLATE FOLLOW-UP
+// ==================================================
 
 function updatePlateQuestion() {
 
@@ -980,10 +980,7 @@ function updatePlateQuestion() {
 
     if (!container) return;
 
-
-    if (
-        observations.plates_present === true
-    ) {
+    if (observations.plates_present === true) {
 
         container.innerHTML = `
 
@@ -999,65 +996,24 @@ function updatePlateQuestion() {
 
                 <div class="identifier-options">
 
-                    ${multiButton(
-                        "Dorsal",
-                        "plate_locations",
-                        "dorsal"
-                    )}
-
-                    ${multiButton(
-                        "Ventral",
-                        "plate_locations",
-                        "ventral"
-                    )}
-
-                    ${multiButton(
-                        "Scapular",
-                        "plate_locations",
-                        "scapular"
-                    )}
-
-                    ${multiButton(
-                        "Median",
-                        "plate_locations",
-                        "median"
-                    )}
-
-                    ${multiButton(
-                        "Paired",
-                        "plate_locations",
-                        "paired"
-                    )}
-
-                    ${multiButton(
-                        "Pseudosegmental",
-                        "plate_locations",
-                        "pseudosegmental"
-                    )}
-
-                    ${multiButton(
-                        "Caudal / terminal",
-                        "plate_locations",
-                        "caudal_terminal"
-                    )}
-
-                    ${multiButton(
-                        "Lateral",
-                        "plate_locations",
-                        "lateral"
-                    )}
-
-                    ${multiButton(
-                        "Other",
-                        "plate_locations",
-                        "other"
-                    )}
-
-                    ${multiButton(
-                        "Unknown",
-                        "plate_locations",
-                        "unknown"
-                    )}
+                    ${[
+                        ["Dorsal", "dorsal"],
+                        ["Ventral", "ventral"],
+                        ["Scapular", "scapular"],
+                        ["Median", "median"],
+                        ["Paired", "paired"],
+                        ["Pseudosegmental", "pseudosegmental"],
+                        ["Caudal / terminal", "caudal_terminal"],
+                        ["Lateral", "lateral"],
+                        ["Other", "other"],
+                        ["Unknown", "unknown"]
+                    ].map(item =>
+                        multiButton(
+                            item[0],
+                            "plate_locations",
+                            item[1]
+                        )
+                    ).join("")}
 
                 </div>
 
@@ -1073,12 +1029,14 @@ function updatePlateQuestion() {
 
     }
 
+    restoreSelectedButtons();
+
 }
 
 
-// --------------------------------------------------
-// Clavae
-// --------------------------------------------------
+// ==================================================
+// CLAVAE FOLLOW-UP
+// ==================================================
 
 function updateClavaeQuestion() {
 
@@ -1087,10 +1045,7 @@ function updateClavaeQuestion() {
 
     if (!container) return;
 
-
-    if (
-        observations.clavae_present === true
-    ) {
+    if (observations.clavae_present === true) {
 
         container.innerHTML = `
 
@@ -1144,12 +1099,14 @@ function updateClavaeQuestion() {
 
     }
 
+    restoreSelectedButtons();
+
 }
 
 
-// --------------------------------------------------
-// Other cirri
-// --------------------------------------------------
+// ==================================================
+// OTHER CIRRI FOLLOW-UP
+// ==================================================
 
 function updateOtherCirriQuestion() {
 
@@ -1158,10 +1115,7 @@ function updateOtherCirriQuestion() {
 
     if (!container) return;
 
-
-    if (
-        observations.other_cirri === true
-    ) {
+    if (observations.other_cirri === true) {
 
         container.innerHTML = `
 
@@ -1177,59 +1131,23 @@ function updateOtherCirriQuestion() {
 
                 <div class="identifier-options">
 
-                    ${multiButton(
-                        "Head",
-                        "other_cirri_locations",
-                        "head"
-                    )}
-
-                    ${multiButton(
-                        "Lateral",
-                        "other_cirri_locations",
-                        "lateral"
-                    )}
-
-                    ${multiButton(
-                        "Dorsal",
-                        "other_cirri_locations",
-                        "dorsal"
-                    )}
-
-                    ${multiButton(
-                        "Near leg I",
-                        "other_cirri_locations",
-                        "near_leg_I"
-                    )}
-
-                    ${multiButton(
-                        "Near leg II",
-                        "other_cirri_locations",
-                        "near_leg_II"
-                    )}
-
-                    ${multiButton(
-                        "Near leg III",
-                        "other_cirri_locations",
-                        "near_leg_III"
-                    )}
-
-                    ${multiButton(
-                        "Near leg IV",
-                        "other_cirri_locations",
-                        "near_leg_IV"
-                    )}
-
-                    ${multiButton(
-                        "Other",
-                        "other_cirri_locations",
-                        "other"
-                    )}
-
-                    ${multiButton(
-                        "Unknown",
-                        "other_cirri_locations",
-                        "unknown"
-                    )}
+                    ${[
+                        ["Head", "head"],
+                        ["Lateral", "lateral"],
+                        ["Dorsal", "dorsal"],
+                        ["Near leg I", "near_leg_I"],
+                        ["Near leg II", "near_leg_II"],
+                        ["Near leg III", "near_leg_III"],
+                        ["Near leg IV", "near_leg_IV"],
+                        ["Other", "other"],
+                        ["Unknown", "unknown"]
+                    ].map(item =>
+                        multiButton(
+                            item[0],
+                            "other_cirri_locations",
+                            item[1]
+                        )
+                    ).join("")}
 
                 </div>
 
@@ -1245,12 +1163,14 @@ function updateOtherCirriQuestion() {
 
     }
 
+    restoreSelectedButtons();
+
 }
 
 
-// --------------------------------------------------
-// Sensory structures
-// --------------------------------------------------
+// ==================================================
+// SENSORY FOLLOW-UP
+// ==================================================
 
 function updateSensoryQuestion() {
 
@@ -1259,10 +1179,7 @@ function updateSensoryQuestion() {
 
     if (!container) return;
 
-
-    if (
-        observations.sensory_structures === true
-    ) {
+    if (observations.sensory_structures === true) {
 
         container.innerHTML = `
 
@@ -1278,59 +1195,23 @@ function updateSensoryQuestion() {
 
                 <div class="identifier-options">
 
-                    ${multiButton(
-                        "Head",
-                        "sensory_locations",
-                        "head"
-                    )}
-
-                    ${multiButton(
-                        "Leg I",
-                        "sensory_locations",
-                        "leg_I"
-                    )}
-
-                    ${multiButton(
-                        "Leg II",
-                        "sensory_locations",
-                        "leg_II"
-                    )}
-
-                    ${multiButton(
-                        "Leg III",
-                        "sensory_locations",
-                        "leg_III"
-                    )}
-
-                    ${multiButton(
-                        "Leg IV",
-                        "sensory_locations",
-                        "leg_IV"
-                    )}
-
-                    ${multiButton(
-                        "Dorsal",
-                        "sensory_locations",
-                        "dorsal"
-                    )}
-
-                    ${multiButton(
-                        "Lateral",
-                        "sensory_locations",
-                        "lateral"
-                    )}
-
-                    ${multiButton(
-                        "Other",
-                        "sensory_locations",
-                        "other"
-                    )}
-
-                    ${multiButton(
-                        "Unknown",
-                        "sensory_locations",
-                        "unknown"
-                    )}
+                    ${[
+                        ["Head", "head"],
+                        ["Leg I", "leg_I"],
+                        ["Leg II", "leg_II"],
+                        ["Leg III", "leg_III"],
+                        ["Leg IV", "leg_IV"],
+                        ["Dorsal", "dorsal"],
+                        ["Lateral", "lateral"],
+                        ["Other", "other"],
+                        ["Unknown", "unknown"]
+                    ].map(item =>
+                        multiButton(
+                            item[0],
+                            "sensory_locations",
+                            item[1]
+                        )
+                    ).join("")}
 
                 </div>
 
@@ -1346,28 +1227,30 @@ function updateSensoryQuestion() {
 
     }
 
+    restoreSelectedButtons();
+
 }
 
 
-// --------------------------------------------------
-// Multi-select buttons
-// --------------------------------------------------
+// ==================================================
+// MULTI-SELECT BUTTON
+// ==================================================
 
 function multiButton(label, key, value) {
 
-    const currentValues =
+    const current =
         observations[key] || [];
 
-    const isSelected =
-        currentValues.includes(value);
+    const selected =
+        current.includes(value);
 
     return `
         <button
             type="button"
-            class="${isSelected ? "selected" : ""}"
-            data-multi-key="${key}"
-            data-multi-value="${value}"
-            onclick='toggleMultiAnswer("${key}", "${value}", this)'
+            class="identifier-choice-button ${selected ? "selected" : ""}"
+            data-key="${key}"
+            data-value="${value}"
+            onclick="toggleMultiAnswer('${key}', '${value}', this)"
         >
             ${label}
         </button>
@@ -1383,6 +1266,40 @@ function toggleMultiAnswer(key, value, button) {
         observations[key] = [];
 
     }
+
+
+    // "Unknown" should behave as an exclusive answer.
+    if (value === "unknown") {
+
+        observations[key] = ["unknown"];
+
+        const parent =
+            button.closest(".identifier-options");
+
+        if (parent) {
+
+            parent
+                .querySelectorAll("button")
+                .forEach(btn => {
+
+                    btn.classList.remove("selected");
+
+                });
+
+        }
+
+        button.classList.add("selected");
+
+        return;
+
+    }
+
+
+    // Selecting a real value removes Unknown.
+    observations[key] =
+        observations[key].filter(
+            item => item !== "unknown"
+        );
 
 
     const index =
@@ -1408,9 +1325,58 @@ function toggleMultiAnswer(key, value, button) {
 }
 
 
-// --------------------------------------------------
-// Find matches
-// --------------------------------------------------
+// ==================================================
+// RESTORE SELECTED BUTTONS
+// ==================================================
+
+function restoreSelectedButtons() {
+
+    document
+        .querySelectorAll(".identifier-choice-button")
+        .forEach(button => {
+
+            const key =
+                button.dataset.key;
+
+            const value =
+                button.dataset.value;
+
+
+            const stored =
+                getNestedValue(observations, key);
+
+
+            let selected = false;
+
+
+            if (Array.isArray(stored)) {
+
+                selected =
+                    stored.includes(value);
+
+            }
+
+            else {
+
+                selected =
+                    String(stored) === value;
+
+            }
+
+
+            button.classList.toggle(
+                "selected",
+                selected
+            );
+
+        });
+
+}
+
+
+// ==================================================
+// FIND MATCHES
+// ==================================================
 
 function findMatches() {
 
@@ -1512,14 +1478,11 @@ function findMatches() {
 }
 
 
-// --------------------------------------------------
-// Species matching
-// --------------------------------------------------
+// ==================================================
+// SPECIES MATCHING
+// ==================================================
 
-function speciesMatches(
-    speciesID,
-    observations
-) {
+function speciesMatches(speciesID, observations) {
 
     for (const key in observations) {
 
@@ -1527,8 +1490,13 @@ function speciesMatches(
             observations[key];
 
 
+        // ------------------------------------------
+        // UNKNOWN = IGNORE THIS CHARACTER
+        // ------------------------------------------
+
         if (
             observedValue === undefined ||
+            observedValue === null ||
             observedValue === "unknown"
         ) {
 
@@ -1537,37 +1505,63 @@ function speciesMatches(
         }
 
 
+        // ------------------------------------------
+        // MULTI-SELECT OBSERVATIONS
+        // ------------------------------------------
+
+        if (Array.isArray(observedValue)) {
+
+            // Empty selection means no information.
+            if (observedValue.length === 0) {
+
+                continue;
+
+            }
+
+
+            // If Unknown is selected, ignore this field.
+            if (
+                observedValue.includes("unknown")
+            ) {
+
+                continue;
+
+            }
+
+        }
+
+
+        // ------------------------------------------
+        // GET SPECIES CHARACTER
+        // ------------------------------------------
+
         const speciesValue =
-            getNestedValue(
+            getSpeciesCharacter(
                 speciesID,
                 key
             );
 
 
-        /*
-         * If the catalogue does not yet contain
-         * information for a character, do not
-         * eliminate the species.
-         */
+        // ------------------------------------------
+        // IMPORTANT:
+        // If the catalogue does not yet have data for
+        // this character, DO NOT eliminate the species.
+        // ------------------------------------------
 
-        if (
-            speciesValue === undefined
-        ) {
+        if (speciesValue === undefined) {
 
             continue;
 
         }
 
 
-        // Multi-select observation
+        // ------------------------------------------
+        // MULTI-SELECT MATCHING
+        // ------------------------------------------
 
-        if (
-            Array.isArray(observedValue)
-        ) {
+        if (Array.isArray(observedValue)) {
 
-            if (
-                !Array.isArray(speciesValue)
-            ) {
+            if (!Array.isArray(speciesValue)) {
 
                 continue;
 
@@ -1590,7 +1584,9 @@ function speciesMatches(
         }
 
 
-        // Normal observation
+        // ------------------------------------------
+        // SINGLE VALUE MATCHING
+        // ------------------------------------------
 
         else {
 
@@ -1612,27 +1608,250 @@ function speciesMatches(
 }
 
 
-// --------------------------------------------------
-// Get nested value
-// --------------------------------------------------
+// ==================================================
+// NORMALIZE SPECIES DATA
+//
+// This lets the identifier work with the current
+// JSON structure while we continue expanding it.
+// ==================================================
 
-function getNestedValue(
-    object,
-    path
-) {
-
-    const parts =
-        path.split(".");
-
-    let current =
-        object;
+function getSpeciesCharacter(species, key) {
 
 
-    for (const part of parts) {
+    // ------------------------------------------
+    // ENVIRONMENT
+    // ------------------------------------------
+
+    if (key === "environment") {
+
+        return species.environment;
+
+    }
+
+
+    // ------------------------------------------
+    // EYES
+    // ------------------------------------------
+
+    if (key === "eyes_present") {
 
         if (
-            current === undefined ||
-            current === null
+            species.eyes &&
+            typeof species.eyes === "object"
+        ) {
+
+            return species.eyes.present;
+
+        }
+
+        if (
+            typeof species.eyes === "boolean"
+        ) {
+
+            return species.eyes;
+
+        }
+
+        return undefined;
+
+    }
+
+
+    if (key === "eyes_color") {
+
+        if (
+            species.eyes &&
+            typeof species.eyes === "object"
+        ) {
+
+            return species.eyes.color;
+
+        }
+
+        return undefined;
+
+    }
+
+
+    // ------------------------------------------
+    // PLATES
+    // ------------------------------------------
+
+    if (key === "plates_present") {
+
+        if (
+            species.plates &&
+            typeof species.plates === "object"
+        ) {
+
+            return species.plates.present;
+
+        }
+
+        if (
+            typeof species.plates === "boolean"
+        ) {
+
+            return species.plates;
+
+        }
+
+        return undefined;
+
+    }
+
+
+    // ------------------------------------------
+    // CLAVAE
+    // ------------------------------------------
+
+    if (key === "clavae_present") {
+
+        if (
+            species.clavae &&
+            typeof species.clavae === "object"
+        ) {
+
+            if (
+                species.clavae.present !== undefined
+            ) {
+
+                return species.clavae.present;
+
+            }
+
+
+            const primary =
+                species.clavae.primary === true;
+
+            const secondary =
+                species.clavae.secondary === true;
+
+
+            return primary || secondary;
+
+        }
+
+        return undefined;
+
+    }
+
+
+    // ------------------------------------------
+    // CLAVAE TYPES
+    // ------------------------------------------
+
+    if (key === "clavae_types") {
+
+        if (!species.clavae) {
+
+            return undefined;
+
+        }
+
+        const types = [];
+
+        if (species.clavae.primary === true) {
+
+            types.push("primary");
+
+        }
+
+        if (species.clavae.secondary === true) {
+
+            types.push("secondary");
+
+        }
+
+        return types;
+
+    }
+
+
+    // ------------------------------------------
+    // CIRRI
+    // ------------------------------------------
+
+    if (key.startsWith("cirri.")) {
+
+        const cirrusKey =
+            key.substring(6);
+
+
+        if (!species.cirri) {
+
+            return undefined;
+
+        }
+
+
+        // diakidius uses "E"
+        if (
+            cirrusKey === "cirrus_E"
+        ) {
+
+            if (
+                species.cirri.cirrus_E !== undefined
+            ) {
+
+                return normalizePresentValue(
+                    species.cirri.cirrus_E
+                );
+
+            }
+
+
+            if (
+                species.cirri.E !== undefined
+            ) {
+
+                return normalizePresentValue(
+                    species.cirri.E
+                );
+
+            }
+
+
+            return undefined;
+
+        }
+
+
+        if (
+            species.cirri[cirrusKey] !== undefined
+        ) {
+
+            return normalizePresentValue(
+                species.cirri[cirrusKey]
+            );
+
+        }
+
+
+        return undefined;
+
+    }
+
+
+    // ------------------------------------------
+    // LEGS
+    // ------------------------------------------
+
+    if (key.startsWith("legs.")) {
+
+        const parts =
+            key.split(".");
+
+        const leg =
+            parts[1];
+
+        const character =
+            parts[2];
+
+
+        if (
+            !species.legs ||
+            !species.legs[leg]
         ) {
 
             return undefined;
@@ -1640,12 +1859,104 @@ function getNestedValue(
         }
 
 
-        current =
-            current[part];
+        const legData =
+            species.legs[leg];
+
+
+        // Current JSON uses sensory_spine and
+        // anterior_papilla separately.
+        if (
+            character === "sensory_structures"
+        ) {
+
+            return (
+                legData.sensory_structures === true ||
+                legData.sensory_spine === true ||
+                legData.anterior_papilla === true
+            );
+
+        }
+
+
+        // Accessory points
+        if (
+            character === "accessory_points"
+        ) {
+
+            if (
+                legData.accessory_points !== undefined
+            ) {
+
+                return legData.accessory_points;
+
+            }
+
+            // Older species record format.
+            if (
+                species.claw_accessory_points !== undefined
+            ) {
+
+                return species.claw_accessory_points;
+
+            }
+
+            return undefined;
+
+        }
+
+
+        if (
+            legData[character] !== undefined
+        ) {
+
+            return legData[character];
+
+        }
+
+
+        return undefined;
 
     }
 
 
-    return current;
+    // ------------------------------------------
+    // EVERYTHING ELSE
+    // ------------------------------------------
+
+    return getNestedValue(
+        species,
+        key
+    );
+
+}
+
+
+// ==================================================
+// NORMALIZE PRESENT / ABSENT VALUES
+// ==================================================
+
+function normalizePresentValue(value) {
+
+    if (
+        typeof value === "boolean"
+    ) {
+
+        return value;
+
+    }
+
+
+    if (
+        value &&
+        typeof value === "object" &&
+        value.present !== undefined
+    ) {
+
+        return value.present;
+
+    }
+
+
+    return value;
 
 }
