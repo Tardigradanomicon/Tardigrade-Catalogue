@@ -1,0 +1,298 @@
+/* =========================================================
+   SPECIES PAGES
+   ========================================================= */
+
+
+/* Breadcrumb */
+
+.breadcrumb {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 2.5rem;
+}
+
+.breadcrumb a {
+    color: #496b68;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    margin: 0 0.35rem;
+    color: #999;
+}
+
+
+
+/* Species introduction */
+
+.species-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 3rem;
+    align-items: start;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 3rem;
+}
+
+.species-heading {
+    padding-top: 1rem;
+}
+
+.species-heading .rank-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    color: #777;
+    margin-bottom: 0.5rem;
+}
+
+.species-heading h1 {
+    font-size: 2.6rem;
+    font-weight: 500;
+    margin: 0 0 1rem 0;
+}
+
+.classification {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.classification span {
+    margin: 0 0.35rem;
+    color: #aaa;
+}
+
+
+
+/* Species image */
+
+.species-image {
+    margin: 0;
+}
+
+.species-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+}
+
+.image-caption {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #666;
+    margin-top: 0.7rem;
+}
+
+.image-credit {
+    color: #888;
+}
+
+
+
+/* Main sections */
+
+.content-section {
+    max-width: 900px;
+    margin-bottom: 4rem;
+}
+
+.section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.65rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 1.55rem;
+    font-weight: 500;
+}
+
+.section-number {
+    font-size: 0.72rem;
+    color: #888;
+    letter-spacing: 0.08em;
+}
+
+
+
+/* Section introduction */
+
+.section-intro {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+
+
+/* Tables */
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+.data-table th,
+.data-table td {
+    text-align: left;
+    padding: 0.75rem 0.9rem;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.data-table thead th {
+    font-weight: 600;
+    color: #444;
+    background: #f5f5f3;
+    border-top: 1px solid #ddd;
+}
+
+.data-table tbody th {
+    width: 30%;
+    font-weight: 500;
+    color: #444;
+}
+
+
+
+/* Diagnostic note */
+
+.diagnostic-note {
+    margin-top: 1.5rem;
+    padding: 1rem 1.2rem;
+    border-left: 3px solid #6d8d88;
+    background: #f6f8f7;
+}
+
+.diagnostic-note strong {
+    font-size: 0.9rem;
+}
+
+.diagnostic-note p {
+    margin: 0.5rem 0 0;
+}
+
+
+
+/* Expandable morphology subsections */
+
+.subsection {
+    border-top: 1px solid #ddd;
+}
+
+.subsection:last-child {
+    border-bottom: 1px solid #ddd;
+}
+
+.subsection summary {
+    cursor: pointer;
+    padding: 1rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #3f5f5c;
+    list-style: none;
+}
+
+.subsection summary::-webkit-details-marker {
+    display: none;
+}
+
+.subsection summary::before {
+    content: "›";
+    display: inline-block;
+    width: 1.3rem;
+    color: #888;
+    transition: transform 0.15s ease;
+}
+
+.subsection[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.subsection > *:not(summary) {
+    margin-left: 1.3rem;
+}
+
+.subsection p,
+.subsection ul,
+.subsection table,
+.subsection h3 {
+    margin-bottom: 1.2rem;
+}
+
+.subsection h3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+
+/* Illustration placeholder */
+
+.illustration-placeholder {
+    margin: 2rem 0;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #bbb;
+    background: #fafafa;
+    color: #888;
+    text-align: center;
+}
+
+.illustration-placeholder p {
+    margin: 0;
+}
+
+
+
+/* References */
+
+.reference {
+    margin-bottom: 1.5rem;
+}
+
+.reference p {
+    margin: 0.3rem 0;
+}
+
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+    .species-intro {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .species-heading h1 {
+        font-size: 2rem;
+    }
+
+    .species-image {
+        max-width: 450px;
+    }
+
+    .data-table {
+        font-size: 0.85rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 0.6rem;
+    }
+
+}
