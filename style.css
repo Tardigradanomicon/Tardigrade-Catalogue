@@ -39,6 +39,72 @@ nav a {
     font-size: 15px;
 }
 
+/* =========================================================
+   HEADER DROPDOWN
+   ========================================================= */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    color: #546266;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.dropdown-button:hover {
+    color: #2f7662;
+}
+
+.dropdown-arrow {
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    min-width: 170px;
+
+    background-color: white;
+    border: 1px solid #d9dddd;
+    border-radius: 5px;
+
+    padding: 8px 0;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    z-index: 100;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    margin: 0;
+    padding: 10px 16px;
+
+    color: #546266;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f5f3;
+    color: #2f7662;
+}
+
 nav a:hover {
     color: #2f7662;
 }
