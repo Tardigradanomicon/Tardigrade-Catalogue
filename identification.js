@@ -908,8 +908,8 @@ function updateEnvironmentQuestion() {
 
                 <div class="identifier-options">
 
-                    ${values.map(item =>
-                        multiButton(
+                   ${values.map(item =>
+                        choiceButton(
                             item[0],
                             "ecological_association",
                             item[1]
@@ -956,37 +956,37 @@ function updateEyeQuestion() {
 
                 <div class="identifier-options">
 
-                    ${multiButton(
+                  ${choiceButton(
                         "Black",
                         "eyes_color",
                         "black"
                     )}
-
-                    ${multiButton(
+                    
+                    ${choiceButton(
                         "Brown",
                         "eyes_color",
                         "brown"
                     )}
-
-                    ${multiButton(
+                    
+                    ${choiceButton(
                         "Red",
                         "eyes_color",
                         "red"
                     )}
-
-                    ${multiButton(
+                    
+                    ${choiceButton(
                         "Orange",
                         "eyes_color",
                         "orange"
                     )}
-
-                    ${multiButton(
+                    
+                    ${choiceButton(
                         "Other",
                         "eyes_color",
                         "other"
                     )}
-
-                    ${multiButton(
+                    
+                    ${choiceButton(
                         "Unknown",
                         "eyes_color",
                         "unknown"
