@@ -1,5 +1,4 @@
 let speciesData = {};
-
 let observations = {};
 
 
@@ -11,14 +10,19 @@ fetch("data/species.json")
 
         speciesData = data;
 
-        showQuestions();
+        showEnvironmentQuestion();
+
+    })
+    .catch(error => {
+
+        console.error("Could not load species data:", error);
 
     });
 
 
-// Questions
+// Environment question
 
-function showQuestions() {
+function showEnvironmentQuestion() {
 
     const questions = document.getElementById("questions");
 
@@ -26,23 +30,29 @@ function showQuestions() {
 
         <div class="identifier-question">
 
-            <h2>What environment was the specimen collected from?</h2>
+            <h2>
+                What environment was the specimen collected from?
+            </h2>
 
-            <button onclick="answer('environment', 'marine')">
-                Marine
-            </button>
+            <div class="identifier-options">
 
-            <button onclick="answer('environment', 'freshwater')">
-                Freshwater
-            </button>
+                <button onclick="answerEnvironment('marine')">
+                    Marine
+                </button>
 
-            <button onclick="answer('environment', 'terrestrial')">
-                Terrestrial
-            </button>
+                <button onclick="answerEnvironment('freshwater')">
+                    Freshwater
+                </button>
 
-            <button onclick="answer('environment', 'unknown')">
-                Unknown
-            </button>
+                <button onclick="answerEnvironment('terrestrial')">
+                    Terrestrial
+                </button>
+
+                <button onclick="answerEnvironment('unknown')">
+                    Unknown
+                </button>
+
+            </div>
 
         </div>
 
@@ -50,83 +60,56 @@ function showQuestions() {
 }
 
 
-// Store an observation
+// Record answer
 
-function answer(character, value) {
+function answerEnvironment(value) {
 
-    observations[character] = value;
+    observations.environment = value;
 
-    calculateResults();
+    showResult();
 
 }
 
 
-// Compare observations with species
+// Temporary result
 
-function calculateResults() {
+function showResult() {
 
     const results = document.getElementById("results");
 
     let matches = [];
 
-
     for (const id in speciesData) {
 
         const species = speciesData[id];
 
-        let score = 0;
-        let possible = 0;
+        if (
+            species.identification.environment
+            === observations.environment
+        ) {
 
-
-        if (observations.environment) {
-
-            possible++;
-
-            if (
-                species.identification.environment
-                === observations.environment
-            ) {
-
-                score++;
-
-            }
-
-        }
-
-
-        const compatibility =
-            possible > 0
-                ? score / possible
-                : 0;
-
-
-        if (compatibility > 0) {
-
-            matches.push({
-                species: species,
-                compatibility: compatibility
-            });
+            matches.push(species);
 
         }
 
     }
 
 
-    displayResults(matches);
-
-}
-
-
-// Display results
-
-function displayResults(matches) {
-
-    const results = document.getElementById("results");
-
     if (matches.length === 0) {
 
         results.innerHTML = `
-            <p>No possible matches found.</p>
+
+            <div class="identifier-result">
+
+                <h2>No matches found</h2>
+
+                <p>
+                    No species in the current catalogue match
+                    this observation.
+                </p>
+
+            </div>
+
         `;
 
         return;
@@ -136,33 +119,26 @@ function displayResults(matches) {
 
     results.innerHTML = `
 
-        <h2>Possible matches</h2>
+        <div class="identifier-result">
 
-    `;
+            <h2>Possible matches</h2>
 
+            <p>
+                Based on the information currently available:
+            </p>
 
-    matches.forEach(match => {
-
-        const percentage =
-            Math.round(match.compatibility * 100);
-
-
-        results.innerHTML += `
-
-            <div class="identifier-result">
-
-                <strong>
-                    <i>${match.species.scientific_name}</i>
-                </strong>
+            ${matches.map(species => `
 
                 <p>
-                    ${percentage}% compatibility
+                    <strong>
+                        <i>${species.scientific_name}</i>
+                    </strong>
                 </p>
 
-            </div>
+            `).join("")}
 
-        `;
+        </div>
 
-    });
+    `;
 
 }
