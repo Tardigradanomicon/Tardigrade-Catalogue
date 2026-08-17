@@ -753,50 +753,272 @@ footer {
 }
 
 /* =========================================================
-   IDENTIFICATION
+   IDENTIFICATION TOOL
    ========================================================= */
 
-.identifier-question {
-    margin-top: 2rem;
-    padding: 2rem;
-    background: #f6f8f7;
-    border: 1px solid #ddd;
+#questions {
+    max-width: 1000px;
+    margin: 2rem auto 0;
 }
 
-.identifier-question h2 {
-    margin-top: 0;
-    font-size: 1.2rem;
-    font-weight: 500;
+
+/* ---------------------------------------------------------
+   Major sections
+   --------------------------------------------------------- */
+
+.identifier-section {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 14px;
+    background: #ffffff;
 }
+
+.identifier-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e5e5;
+}
+
+.identifier-section-number {
+    flex: 0 0 auto;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #777;
+}
+
+.identifier-section-title {
+    margin: 0;
+    font-size: 1.45rem;
+    line-height: 1.2;
+}
+
+
+/* ---------------------------------------------------------
+   Individual questions
+   --------------------------------------------------------- */
+
+.identifier-question {
+    margin: 0;
+    padding: 1.5rem 0;
+}
+
+.identifier-question + .identifier-question {
+    border-top: 1px solid #e4e4e4;
+}
+
+.identifier-question-label {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+
+/* ---------------------------------------------------------
+   Smaller category heading inside leg sections
+   --------------------------------------------------------- */
+
+.identifier-question-category {
+    display: block;
+    margin: 0 0 0.75rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 6px;
+    background: #f3f3f1;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #666;
+}
+
+
+/* ---------------------------------------------------------
+   Answer choices
+   --------------------------------------------------------- */
 
 .identifier-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.65rem;
 }
 
 .identifier-options button {
-    padding: 0.7rem 1.2rem;
-    border: 1px solid #cbd2d0;
-    border-radius: 4px;
-    background: white;
-    color: #3f5f5c;
+    appearance: none;
+    padding: 0.75rem 1rem;
+
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+
+    background: #fafafa;
+
+    color: #333;
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    line-height: 1.3;
+
     cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.1s ease;
 }
 
 .identifier-options button:hover {
-    background: #f1f5f3;
+    border-color: #999;
+    background: #f3f3f3;
+}
+
+.identifier-options button:active {
+    transform: translateY(1px);
+}
+
+.identifier-options button.selected {
+    border-color: #555;
+    background: #e8e8e5;
+    font-weight: 600;
+}
+
+
+/* ---------------------------------------------------------
+   Conditional questions
+   --------------------------------------------------------- */
+
+.identifier-conditional {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    padding: 1rem 1rem 0.25rem 1.25rem;
+    border-left: 3px solid #ddd;
+}
+
+
+/* ---------------------------------------------------------
+   Leg morphology
+   --------------------------------------------------------- */
+
+.identifier-leg-section {
+    margin-top: 3rem;
+}
+
+.identifier-leg-section .identifier-section-header {
+    margin-bottom: 0.5rem;
+}
+
+
+/* Make the individual morphology questions feel like cards */
+
+.identifier-morphology-question {
+    margin: 1rem 0;
+    padding: 1.25rem;
+
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+
+    background: #fcfcfb;
+}
+
+.identifier-morphology-question .identifier-question-label {
+    margin-bottom: 1rem;
+}
+
+
+/* ---------------------------------------------------------
+   Find Matches
+   --------------------------------------------------------- */
+
+.find-matches-container {
+    display: flex;
+    justify-content: center;
+
+    margin: 3.5rem auto;
+    padding-top: 1rem;
+
+    border-top: 1px solid #ddd;
+}
+
+.find-matches-button {
+    min-width: 220px;
+    padding: 1rem 2.5rem;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #333;
+    color: white;
+
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.1s ease;
+}
+
+.find-matches-button:hover {
+    background: #222;
+}
+
+.find-matches-button:active {
+    transform: translateY(1px);
+}
+
+
+/* ---------------------------------------------------------
+   Results
+   --------------------------------------------------------- */
+
+#results {
+    max-width: 1000px;
+    margin: 0 auto 4rem;
 }
 
 .identifier-result {
     margin-top: 2rem;
     padding: 1.5rem;
-    border-top: 1px solid #ddd;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    background: #fafafa;
 }
 
-.identifier-result h2 {
-    font-size: 1.2rem;
-    font-weight: 500;
+
+/* ---------------------------------------------------------
+   Mobile
+   --------------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+    .identifier-section {
+        padding: 1.25rem;
+    }
+
+    .identifier-options {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .identifier-options button {
+        width: 100%;
+        text-align: left;
+    }
+
+    .identifier-morphology-question {
+        padding: 1rem;
+    }
+
+    .identifier-conditional {
+        margin-left: 0.5rem;
+        padding-left: 1rem;
+    }
+
 }
