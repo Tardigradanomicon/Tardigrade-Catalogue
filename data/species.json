@@ -1,49 +1,192 @@
 "anisonyches-deliquus": {
-    "scientific_name": "Anisonyches deliquus",
-    "authority": "Chang & Rho, 1998",
-    "page": "species/Anisonyches-deliquus.html",
+  "scientific_name": "Anisonyches deliquus",
+  "authority": "Chang & Rho, 1998",
+  "page": "species/Anisonyches-deliquus.html",
 
-    "taxonomy": {
-        "phylum": "Tardigrada",
-        "class": "Heterotardigrada",
-        "order": "Arthrotardigrada",
-        "family": "Anisonychidae",
-        "genus": "Anisonyches"
+  "taxonomy": {
+    "phylum": "Tardigrada",
+    "class": "Heterotardigrada",
+    "order": "Arthrotardigrada",
+    "family": "Anisonychidae",
+    "genus": "Anisonyches"
+  },
+
+  "identification": {
+
+    "environment": "marine",
+
+    "eyes": {
+      "present": true,
+      "color": "black"
     },
 
-    "identification": {
-      "environment": "marine",
-      "eyes": true,
-      "plates": false,
-      "clavae": false,
+    "plates": {
+      "present": false
+    },
 
-      "legs": {
-        "I": {
-          "claws": 4,
-          "sensory_spine": false,
-          "anterior_papilla": false
-        },
+    "clavae": {
+      "primary": false,
+      "secondary": false
+    },
 
-        "II": {
-          "claws": 4,
-          "sensory_spine": false,
-          "anterior_papilla": false
-        },
+    "cirri": {
 
-        "III": {
-          "claws": 4,
-          "sensory_spine": false,
-          "anterior_papilla": false
-        },
-
-        "IV": {
-          "claws": 3,
-          "sensory_spine": false,
-          "anterior_papilla": false
-        }
+      "median_cephalic": {
+        "present": true
       },
 
-      "claw_accessory_points": true
+      "internal_cephalic": {
+        "present": true
+      },
+
+      "external_cephalic": {
+        "present": true
+      },
+
+      "lateral": {
+        "present": true
+      },
+
+      "cirrus_E": {
+        "present": true,
+        "location": "dorsal, above leg IV"
+      }
+    },
+
+    "legs": {
+
+      "I": {
+        "claws": 4,
+        "sensory_spine": false,
+        "anterior_papilla": false
+      },
+
+      "II": {
+        "claws": 4,
+        "sensory_spine": false,
+        "anterior_papilla": false
+      },
+
+      "III": {
+        "claws": 4,
+        "sensory_spine": false,
+        "anterior_papilla": false
+      },
+
+      "IV": {
+        "claws": 3,
+        "sensory_spine": false,
+        "anterior_papilla": false
+      }
+    },
+
+    "claw_accessory_points": true
+  }
+}
+"anisonyches-diakidius": {
+  "scientific_name": "Anisonyches diakidius",
+  "authority": "Pollock, 1975",
+  "page": "species/Anisonyches-diakidius.html",
+
+  "taxonomy": {
+    "phylum": "Tardigrada",
+    "class": "Heterotardigrada",
+    "order": "Arthrotardigrada",
+    "family": "Anisonychidae",
+    "genus": "Anisonyches"
+  },
+
+  "identification": {
+
+    "environment": "marine",
+
+    "eyes": {
+      "present": true,
+      "color": "black"
+    },
+
+    "plates": {
+      "present": false
+    },
+
+    "clavae": {
+      "primary": true,
+      "secondary": true
+    },
+
+    "cirri": {
+
+      "median_cephalic": {
+        "present": true
+      },
+
+      "internal_cephalic": {
+        "present": true
+      },
+
+      "external_cephalic": {
+        "present": true
+      },
+
+      "lateral": {
+        "present": true
+      },
+
+      "cirrus_E": {
+        "present": true,
+        "location": "dorsal, anterior to leg IV"
+      }
+    },
+
+    "legs": {
+
+      "I": {
+        "claws": 4,
+        "sensory_spine": false,
+        "papilla": false
+      },
+
+      "II": {
+        "claws": 4,
+        "sensory_spine": false,
+        "papilla": false
+      },
+
+      "III": {
+        "claws": 4,
+        "sensory_spine": false,
+        "papilla": false
+      },
+
+      "IV": {
+        "claws": 3,
+        "sensory_spine": false,
+        "papilla": true
+      }
+    },
+
+    "claws": {
+
+      "I_III": {
+        "number_per_leg": 4,
+        "arrangement": "progressively longer from inner to outer",
+        "basal_spurs": "widely divergent and horizontally directed"
+      },
+
+      "IV": {
+        "number_per_leg": 3,
+        "arrangement": "approximately equal in length"
+      },
+
+      "curvature": "slightly curved apically",
+
+      "accessory_points": {
+        "present": true,
+        "locations": [
+          "medial claws of legs I–III",
+          "inner two claws of leg IV"
+        ]
+      }
     }
   }
 }
