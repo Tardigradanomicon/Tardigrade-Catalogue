@@ -1,0 +1,227 @@
+{
+  "anisonyches-deliquus": {
+    "scientific_name": "Anisonyches deliquus",
+    "authority": "Chang & Rho, 1998",
+
+    "taxonomy": {
+      "phylum": "Tardigrada",
+      "class": "Heterotardigrada",
+      "order": "Arthrotardigrada",
+      "family": "Anisonychidae",
+      "genus": "Anisonyches"
+    },
+
+    "habitat": {
+      "environment": "marine",
+      "habitat": "Intertidal to shallow sublittoral",
+      "substrate": "Coralline sand bottoms",
+      "depth": {
+        "minimum_m": 1,
+        "maximum_m": 5
+      },
+      "locality": "Santa Cruz Island near Zamboanga Port, Mindanao, Philippines",
+      "geographic_unit": "Philippines"
+    },
+
+    "body": {
+      "length_um": 141,
+      "width_um": 40.1,
+      "color": "Transparent or yellowish",
+      "cuticle": "Smooth, without plates or dots"
+    },
+
+    "eyes": {
+      "present": true,
+      "description": "Black eye spots"
+    },
+
+    "bucco_pharyngeal_apparatus": {
+      "mouth": "Subterminal and protruding, with telescopic division",
+      "buccal_tube": {
+        "length_um": 32.1,
+        "description": "Very long and narrow"
+      },
+      "pharyngeal_bulb": {
+        "length_um": 9.4,
+        "width_um": 9.5,
+        "shape": "Small and spherical"
+      },
+      "placoids": {
+        "number": 3,
+        "length_um_approx": 5,
+        "description": "Three short placoids"
+      },
+      "stylets": {
+        "length_um": 35,
+        "description": "Stylets with sheaths ending in piercing tips"
+      },
+      "stylet_supports": {
+        "present": false
+      }
+    },
+
+    "plates": {
+      "present": false,
+      "description": "Plates absent; anus covered by two large lateral plates"
+    },
+
+    "appendages": {
+      "head": {
+        "median_cephalic_cirrus": {
+          "length_um": 2.4
+        },
+        "internal_cirri": {
+          "length_um": 3.2
+        },
+        "external_cirri": {
+          "length_um": 4.2
+        },
+        "lateral_cirri": {
+          "length_um": 5.8
+        },
+        "primary_clavae": {
+          "present": false
+        },
+        "secondary_clavae": {
+          "present": false
+        }
+      },
+
+      "dorsal": {
+        "cirrus_E": {
+          "length_um": 7.7,
+          "position": "Just above leg IV",
+          "description": "Relatively long; base simple, without peduncle or accordion-like structure"
+        }
+      },
+
+      "lateral": {}
+    },
+
+    "legs": {
+      "description": "Stubby and non-telescopic",
+
+      "I": {
+        "claws": 4,
+        "spines": false,
+        "papillae": false
+      },
+
+      "II": {
+        "claws": 4,
+        "spines": false,
+        "papillae": false
+      },
+
+      "III": {
+        "claws": 4,
+        "spines": false,
+        "papillae": false
+      },
+
+      "IV": {
+        "claws": 3,
+        "spines": false,
+        "papillae": false
+      },
+
+      "general_claw_morphology": {
+        "toes": false,
+        "attachment": "Claws attach directly to the legs",
+        "accessory_points": true,
+        "description": "The two middle claws on legs I–III are larger and possess apical accessory points. Basal spurs are stout and slightly curved. The inner two claws on leg IV are slightly larger and also possess accessory points."
+      }
+    },
+
+    "reproduction": {
+      "gonopore": {
+        "sex": "female",
+        "diameter_um": 4,
+        "position": "Just in front of leg IV",
+        "description": "Relatively large and surrounded by six small membranes"
+      },
+      "gonopore_anus_distance_um": 8.6,
+      "eggs": {
+        "reported": false
+      }
+    },
+
+    "measurements": {
+      "body_length_um": 141,
+      "body_width_um": 40.1,
+      "buccal_tube_um": 32.1,
+      "pharyngeal_bulb_um": {
+        "length": 9.4,
+        "width": 9.5
+      },
+      "stylets_with_sheaths_um": 35,
+      "median_cephalic_cirrus_um": 2.4,
+      "internal_cirri_um": 3.2,
+      "external_cirri_um": 4.2,
+      "lateral_cirri_um": 5.8,
+      "cirrus_E_um": 7.7,
+      "gonopore_um": 4,
+      "gonopore_anus_distance_um": 8.6
+    },
+
+    "diagnostic_characters": [
+      "Legs I–III possess four claws.",
+      "Leg IV possesses three claws.",
+      "The two middle claws on legs I–III possess apical accessory points.",
+      "The inner two claws on leg IV possess accessory points.",
+      "Clavae are absent.",
+      "Sensory spines or papillae are absent from the legs.",
+      "Legs are stubby and non-telescopic.",
+      "Plates are absent."
+    ],
+
+    "molecular_data": {
+      "available": false,
+      "genbank": []
+    },
+
+    "taxonomy_notes": {
+      "description": "The species was compared with Anisonyches mauritianus and other species of Anisonyches, particularly on the basis of claw morphology.",
+      "distinguishing_features": [
+        "Absence of sensory spines or papillae on all leg pairs.",
+        "Less protruding head than Anisonyches mauritianus.",
+        "Absence of clavae."
+      ]
+    },
+
+    "specimen": {
+      "type": "Holotype",
+      "museum": "USNM - National Museum of Natural History, Washington, D.C., USA",
+      "preservation": "Slide",
+      "collector": "C.Y. Chang and H.S. Rho",
+      "collection_date": "1996-01-22"
+    },
+
+    "images": [
+      {
+        "filename": "Anisonychesdeliquus.png",
+        "type": "scientific_illustration",
+        "caption": "Anisonyches deliquus Chang & Rho, 1998. Female habitus, ventral (A) and dorsal (B) views.",
+        "source": "Chang & Rho, 1998",
+        "figure": "Fig. 1"
+      }
+    ],
+
+    "references": [
+      {
+        "type": "primary_description",
+        "citation": "Chang CY, Rho HS. 1998. Two marine tardigrade species of genus Anisonyches (Heterotardigrada: Echiniscoididae) from Mindanao, the Philippines. Korean Journal of Systematic Zoology. 14(2):91–98."
+      },
+      {
+        "type": "taxonomic_database",
+        "citation": "World Register of Marine Species. 2026. Anisonyches deliquus Chang & Rho, 1998. WoRMS taxon details [Internet]. [accessed 2026 Aug 17].",
+        "url": "https://www.marinespecies.org/aphia.php?p=taxdetails&id=342724"
+      },
+      {
+        "type": "checklist",
+        "citation": "Degma P, Guidetti R. 2026. Actual checklist of Tardigrada species. 45th ed. [Internet]. [accessed 2026 Aug 17].",
+        "doi": "https://doi.org/10.5281/zenodo.20746849"
+      }
+    ]
+  }
+}
