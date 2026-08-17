@@ -1,766 +1,66 @@
 let speciesData = {};
 let observations = {};
 
-let currentQuestion = 0;
 
-
-// ============================================================
+// ===============================
 // LOAD SPECIES DATA
-// ============================================================
+// ===============================
 
 fetch("data/species.json")
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Could not load species.json");
+        }
+
+        return response.json();
+    })
     .then(data => {
 
         speciesData = data;
 
-        showNextQuestion();
+        observations = {};
+
+        showEnvironmentQuestion();
 
     })
     .catch(error => {
 
         console.error("Could not load species data:", error);
 
+        document.getElementById("questions").innerHTML = `
+            <div class="identifier-result">
+                <h2>Unable to load identification data</h2>
+                <p>
+                    There was a problem loading the species database.
+                </p>
+            </div>
+        `;
+
     });
 
 
-// ============================================================
-// QUESTIONS
-// ============================================================
+// ===============================
+// QUESTION RENDERING
+// ===============================
 
-const questions = [
+function renderQuestion(title, options) {
 
-    // --------------------------------------------------------
-    // ENVIRONMENT
-    // --------------------------------------------------------
+    const questions = document.getElementById("questions");
 
-    {
-        id: "environment",
-
-        question: "What environment was the specimen collected from?",
-
-        type: "single",
-
-        options: [
-            ["marine", "Marine"],
-            ["freshwater", "Freshwater"],
-            ["terrestrial", "Terrestrial"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // --------------------------------------------------------
-    // TERRESTRIAL SUBSTRATE
-    // --------------------------------------------------------
-
-    {
-        id: "terrestrial_substrate",
-
-        question: "What was the specimen associated with?",
-
-        type: "multiple",
-
-        condition: () =>
-            observations.environment === "terrestrial",
-
-        options: [
-            ["moss", "Moss"],
-            ["lichen", "Lichen"],
-            ["leaf_litter", "Leaf litter"],
-            ["soil", "Soil"],
-            ["vegetation", "Vegetation"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // --------------------------------------------------------
-    // MARINE / FRESHWATER ASSOCIATION
-    // --------------------------------------------------------
-
-    {
-        id: "aquatic_association",
-
-        question: "What was the specimen associated with?",
-
-        type: "multiple",
-
-        condition: () =>
-            observations.environment === "marine" ||
-            observations.environment === "freshwater",
-
-        options: [
-            ["algae", "Algae"],
-            ["sediment", "Sediment"],
-            ["seagrass", "Seagrass / aquatic vegetation"],
-            ["coral", "Coral / reef substrate"],
-            ["rock", "Rock"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // --------------------------------------------------------
-    // EYES
-    // --------------------------------------------------------
-
-    {
-        id: "eyes",
-
-        question: "Are eyes present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "eye_color",
-
-        question: "What color are the eyes?",
-
-        type: "multiple",
-
-        condition: () =>
-            observations.eyes === true,
-
-        options: [
-            ["black", "Black"],
-            ["brown", "Brown"],
-            ["red", "Red"],
-            ["orange", "Orange"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // --------------------------------------------------------
-    // CUTICULAR PLATES
-    // --------------------------------------------------------
-
-    {
-        id: "plates",
-
-        question: "Are cuticular plates present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "plate_locations",
-
-        question: "Where are the cuticular plates present?",
-
-        type: "multiple",
-
-        condition: () =>
-            observations.plates === true,
-
-        options: [
-            ["dorsal", "Dorsal"],
-            ["ventral", "Ventral"],
-            ["scapular", "Scapular"],
-            ["median", "Median"],
-            ["paired", "Paired"],
-            ["pseudosegmental", "Pseudosegmental"],
-            ["caudal", "Caudal / terminal"],
-            ["lateral", "Lateral"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // --------------------------------------------------------
-    // CLAVAE
-    // --------------------------------------------------------
-
-    {
-        id: "clavae",
-
-        question: "Are clavae present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "clavae_types",
-
-        question: "Which types of clavae are present?",
-
-        type: "multiple",
-
-        condition: () =>
-            observations.clavae === true,
-
-        options: [
-            ["primary", "Primary clavae"],
-            ["secondary", "Secondary clavae"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // ========================================================
-    // CIRRI
-    // ========================================================
-
-    {
-        id: "median_cephalic_cirrus",
-
-        question: "Is a median cephalic cirrus present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "internal_cephalic_cirri",
-
-        question: "Are internal cephalic cirri present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "external_cephalic_cirri",
-
-        question: "Are external cephalic cirri present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "lateral_cirri",
-
-        question: "Are lateral cirri present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "cirrus_E",
-
-        question: "Is cirrus E present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "other_cirri",
-
-        question: "Are other identifiable cirri present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "other_cirri_locations",
-
-        question: "Where are the other cirri located?",
-
-        type: "multiple",
-
-        condition: () =>
-            observations.other_cirri === true,
-
-        options: [
-            ["head", "Head"],
-            ["lateral", "Lateral"],
-            ["dorsal", "Dorsal"],
-            ["near_leg_I", "Near leg I"],
-            ["near_leg_II", "Near leg II"],
-            ["near_leg_III", "Near leg III"],
-            ["near_leg_IV", "Near leg IV"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // ========================================================
-    // SENSORY SPINES / PAPILLAE
-    // ========================================================
-
-    {
-        id: "sensory_structures",
-
-        question: "Are sensory spines or papillae present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "sensory_structure_locations",
-
-        question: "Where are sensory spines or papillae present?",
-
-        type: "multiple",
-
-        condition: () =>
-            observations.sensory_structures === true,
-
-        options: [
-            ["head", "Head"],
-            ["leg_I", "Leg I"],
-            ["leg_II", "Leg II"],
-            ["leg_III", "Leg III"],
-            ["leg_IV", "Leg IV"],
-            ["dorsal", "Dorsal"],
-            ["lateral", "Lateral"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // ========================================================
-    // LEG I
-    // ========================================================
-
-    {
-        id: "leg_I_claws",
-
-        question: "How many claws are present on each leg of Leg pair I?",
-
-        type: "single",
-
-        options: [
-            [2, "2 claws"],
-            [3, "3 claws"],
-            [4, "4 claws"],
-            ["different", "Different between left and right"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "leg_I_claw_arrangement",
-
-        question: "How are the claws arranged in size?",
-
-        type: "single",
-
-        options: [
-            ["equal", "Approximately equal"],
-            ["increasing", "Progressively longer from inner → outer"],
-            ["decreasing", "Progressively shorter from inner → outer"],
-            ["inner_larger", "Inner claws larger"],
-            ["outer_larger", "Outer claws larger"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "leg_I_sensory",
-
-        question: "Are sensory spines or papillae present on Leg I?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // ========================================================
-    // LEG II
-    // ========================================================
-
-    {
-        id: "leg_II_claws",
-
-        question: "How many claws are present on each leg of Leg pair II?",
-
-        type: "single",
-
-        options: [
-            [2, "2 claws"],
-            [3, "3 claws"],
-            [4, "4 claws"],
-            ["different", "Different between left and right"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "leg_II_claw_arrangement",
-
-        question: "How are the claws arranged in size?",
-
-        type: "single",
-
-        options: [
-            ["equal", "Approximately equal"],
-            ["increasing", "Progressively longer from inner → outer"],
-            ["decreasing", "Progressively shorter from inner → outer"],
-            ["inner_larger", "Inner claws larger"],
-            ["outer_larger", "Outer claws larger"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "leg_II_sensory",
-
-        question: "Are sensory spines or papillae present on Leg II?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // ========================================================
-    // LEG III
-    // ========================================================
-
-    {
-        id: "leg_III_claws",
-
-        question: "How many claws are present on each leg of Leg pair III?",
-
-        type: "single",
-
-        options: [
-            [2, "2 claws"],
-            [3, "3 claws"],
-            [4, "4 claws"],
-            ["different", "Different between left and right"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "leg_III_claw_arrangement",
-
-        question: "How are the claws arranged in size?",
-
-        type: "single",
-
-        options: [
-            ["equal", "Approximately equal"],
-            ["increasing", "Progressively longer from inner → outer"],
-            ["decreasing", "Progressively shorter from inner → outer"],
-            ["inner_larger", "Inner claws larger"],
-            ["outer_larger", "Outer claws larger"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "leg_III_sensory",
-
-        question: "Are sensory spines or papillae present on Leg III?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // ========================================================
-    // LEG IV
-    // ========================================================
-
-    {
-        id: "leg_IV_claws",
-
-        question: "How many claws are present on each leg of Leg pair IV?",
-
-        type: "single",
-
-        options: [
-            [2, "2 claws"],
-            [3, "3 claws"],
-            [4, "4 claws"],
-            ["different", "Different between left and right"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "leg_IV_claw_arrangement",
-
-        question: "How are the claws arranged in size?",
-
-        type: "single",
-
-        options: [
-            ["equal", "Approximately equal"],
-            ["increasing", "Progressively longer from inner → outer"],
-            ["decreasing", "Progressively shorter from inner → outer"],
-            ["inner_larger", "Inner claws larger"],
-            ["outer_larger", "Outer claws larger"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "leg_IV_sensory",
-
-        question: "Are sensory spines or papillae present on Leg IV?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // ========================================================
-    // CLAW ACCESSORY POINTS
-    // ========================================================
-
-    {
-        id: "claw_accessory_points",
-
-        question: "Are claw accessory points present?",
-
-        type: "single",
-
-        options: [
-            [true, "Present"],
-            [false, "Absent"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "accessory_point_locations",
-
-        question: "Which claws possess accessory points?",
-
-        type: "multiple",
-
-        condition: () =>
-            observations.claw_accessory_points === true,
-
-        options: [
-            ["primary", "Primary claws"],
-            ["secondary", "Secondary claws"],
-            ["inner", "Inner claws"],
-            ["outer", "Outer claws"],
-            ["basal_spurs", "Basal spurs"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    // ========================================================
-    // BASAL SPURS
-    // ========================================================
-
-    {
-        id: "basal_spur_arrangement",
-
-        question: "How are the basal spurs arranged?",
-
-        type: "single",
-
-        options: [
-            ["widely_divergent", "Widely divergent"],
-            ["slightly_divergent", "Slightly divergent"],
-            ["closely_parallel", "Closely parallel"],
-            ["parallel", "Parallel"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "basal_spur_orientation",
-
-        question: "In what direction are the basal spurs oriented?",
-
-        type: "multiple",
-
-        options: [
-            ["horizontal", "Horizontal"],
-            ["upward", "Upward"],
-            ["downward", "Downward"],
-            ["toward_claw", "Toward the claw"],
-            ["away_from_claw", "Away from the claw"],
-            ["other", "Other"],
-            ["unknown", "Unknown"]
-        ]
-    },
-
-
-    {
-        id: "basal_spurs_between_legs",
-
-        question: "Are the basal spurs similar between leg pairs?",
-
-        type: "single",
-
-        options: [
-            [true, "Yes"],
-            [false, "No"],
-            ["unknown", "Unknown"]
-        ]
-    }
-
-];
-
-
-// ============================================================
-// FIND NEXT APPLICABLE QUESTION
-// ============================================================
-
-function showNextQuestion() {
-
-    const questionsContainer =
-        document.getElementById("questions");
-
-
-    while (
-        currentQuestion < questions.length &&
-        questions[currentQuestion].condition &&
-        !questions[currentQuestion].condition()
-    ) {
-
-        currentQuestion++;
-
-    }
-
-
-    // Finished all questions
-
-    if (currentQuestion >= questions.length) {
-
-        showResult();
-
-        return;
-
-    }
-
-
-    const question =
-        questions[currentQuestion];
-
-
-    questionsContainer.innerHTML = `
+    questions.innerHTML = `
 
         <div class="identifier-question">
 
             <h2>
-                ${question.question}
+                ${title}
             </h2>
 
             <div class="identifier-options">
 
-                ${question.options.map((option, index) => `
+                ${options.map(option => `
 
-                    <button
-                        onclick="answerQuestion(${index})"
-                    >
-                        ${option[1]}
+                    <button onclick="${option.action}">
+                        ${option.label}
                     </button>
 
                 `).join("")}
@@ -770,84 +70,1111 @@ function showNextQuestion() {
         </div>
 
     `;
+}
+
+
+// ===============================
+// ENVIRONMENT
+// ===============================
+
+function showEnvironmentQuestion() {
+
+    renderQuestion(
+
+        "What environment was the specimen collected from?",
+
+        [
+            {
+                label: "Marine",
+                action: "answerEnvironment('marine')"
+            },
+            {
+                label: "Freshwater",
+                action: "answerEnvironment('freshwater')"
+            },
+            {
+                label: "Terrestrial",
+                action: "answerEnvironment('terrestrial')"
+            },
+            {
+                label: "Unknown",
+                action: "answerEnvironment('unknown')"
+            }
+        ]
+
+    );
 
 }
 
 
-// ============================================================
-// RECORD ANSWER
-// ============================================================
+function answerEnvironment(value) {
 
-function answerQuestion(optionIndex) {
+    observations.environment = value;
 
-    const question =
-        questions[currentQuestion];
+    if (value === "terrestrial") {
 
+        showTerrestrialAssociationQuestion();
 
-    const selectedValue =
-        question.options[optionIndex][0];
+    } else if (
+        value === "marine" ||
+        value === "freshwater"
+    ) {
 
-
-    if (question.type === "multiple") {
-
-        /*
-         * Multiple-selection questions will eventually use
-         * checkboxes and a Continue button.
-         *
-         * For now this records the selected value as an array.
-         */
-
-        observations[question.id] = [selectedValue];
+        showAquaticAssociationQuestion();
 
     } else {
 
-        observations[question.id] =
-            selectedValue;
+        showEyesQuestion();
 
     }
-
-
-    currentQuestion++;
-
-    showNextQuestion();
 
 }
 
 
-// ============================================================
-// RESULTS
-// ============================================================
+// ===============================
+// ECOLOGICAL ASSOCIATION
+// ===============================
 
-function showResult() {
+function showTerrestrialAssociationQuestion() {
 
-    const results =
-        document.getElementById("results");
+    renderQuestion(
+
+        "What was the specimen associated with?",
+
+        [
+            {
+                label: "Moss",
+                action: "answerEcologicalAssociation('moss')"
+            },
+            {
+                label: "Lichen",
+                action: "answerEcologicalAssociation('lichen')"
+            },
+            {
+                label: "Leaf litter",
+                action: "answerEcologicalAssociation('leaf_litter')"
+            },
+            {
+                label: "Soil",
+                action: "answerEcologicalAssociation('soil')"
+            },
+            {
+                label: "Vegetation",
+                action: "answerEcologicalAssociation('vegetation')"
+            },
+            {
+                label: "Other",
+                action: "answerEcologicalAssociation('other')"
+            },
+            {
+                label: "Unknown",
+                action: "answerEcologicalAssociation('unknown')"
+            }
+        ]
+
+    );
+
+}
 
 
-    let matches = [];
+function showAquaticAssociationQuestion() {
+
+    renderQuestion(
+
+        "What was the specimen associated with?",
+
+        [
+            {
+                label: "Algae",
+                action: "answerEcologicalAssociation('algae')"
+            },
+            {
+                label: "Sediment",
+                action: "answerEcologicalAssociation('sediment')"
+            },
+            {
+                label: "Seagrass / aquatic vegetation",
+                action: "answerEcologicalAssociation('aquatic_vegetation')"
+            },
+            {
+                label: "Coral / reef substrate",
+                action: "answerEcologicalAssociation('coral_reef')"
+            },
+            {
+                label: "Rock",
+                action: "answerEcologicalAssociation('rock')"
+            },
+            {
+                label: "Other",
+                action: "answerEcologicalAssociation('other')"
+            },
+            {
+                label: "Unknown",
+                action: "answerEcologicalAssociation('unknown')"
+            }
+        ]
+
+    );
+
+}
 
 
-    for (const id in speciesData) {
+function answerEcologicalAssociation(value) {
 
-        const species =
-            speciesData[id];
+    observations.ecological_association = value;
+
+    showEyesQuestion();
+
+}
 
 
-        const score =
-            calculateMatch(species);
+// ===============================
+// EYES
+// ===============================
+
+function showEyesQuestion() {
+
+    renderQuestion(
+
+        "Are eyes present?",
+
+        [
+            {
+                label: "Present",
+                action: "answerEyes('present')"
+            },
+            {
+                label: "Absent",
+                action: "answerEyes('absent')"
+            },
+            {
+                label: "Unknown",
+                action: "answerEyes('unknown')"
+            }
+        ]
+
+    );
+
+}
 
 
-        matches.push({
-            species: species,
-            score: score
-        });
+function answerEyes(value) {
+
+    observations.eyes = {
+        present: value
+    };
+
+    if (value === "present") {
+
+        showEyeColorQuestion();
+
+    } else {
+
+        showPlatesQuestion();
 
     }
 
+}
 
-    matches.sort((a, b) =>
-        b.score - a.score
+
+function showEyeColorQuestion() {
+
+    renderQuestion(
+
+        "What color are the eyes?",
+
+        [
+            {
+                label: "Black",
+                action: "answerEyeColor('black')"
+            },
+            {
+                label: "Brown",
+                action: "answerEyeColor('brown')"
+            },
+            {
+                label: "Red",
+                action: "answerEyeColor('red')"
+            },
+            {
+                label: "Orange",
+                action: "answerEyeColor('orange')"
+            },
+            {
+                label: "Other",
+                action: "answerEyeColor('other')"
+            },
+            {
+                label: "Unknown",
+                action: "answerEyeColor('unknown')"
+            }
+        ]
+
     );
+
+}
+
+
+function answerEyeColor(value) {
+
+    observations.eyes.color = value;
+
+    showPlatesQuestion();
+
+}
+
+
+// ===============================
+// PLATES
+// ===============================
+
+function showPlatesQuestion() {
+
+    renderQuestion(
+
+        "Are cuticular plates present?",
+
+        [
+            {
+                label: "Present",
+                action: "answerPlates('present')"
+            },
+            {
+                label: "Absent",
+                action: "answerPlates('absent')"
+            },
+            {
+                label: "Unknown",
+                action: "answerPlates('unknown')"
+            }
+        ]
+
+    );
+
+}
+
+
+function answerPlates(value) {
+
+    observations.plates = {
+        present: value
+    };
+
+    if (value === "present") {
+
+        showPlateLocationQuestion();
+
+    } else {
+
+        showClavaeQuestion();
+
+    }
+
+}
+
+
+function showPlateLocationQuestion() {
+
+    renderQuestion(
+
+        "Where are cuticular plates present?",
+
+        [
+            {
+                label: "Dorsal",
+                action: "answerPlateLocation('dorsal')"
+            },
+            {
+                label: "Ventral",
+                action: "answerPlateLocation('ventral')"
+            },
+            {
+                label: "Scapular",
+                action: "answerPlateLocation('scapular')"
+            },
+            {
+                label: "Median",
+                action: "answerPlateLocation('median')"
+            },
+            {
+                label: "Paired",
+                action: "answerPlateLocation('paired')"
+            },
+            {
+                label: "Pseudosegmental",
+                action: "answerPlateLocation('pseudosegmental')"
+            },
+            {
+                label: "Caudal / terminal",
+                action: "answerPlateLocation('caudal_terminal')"
+            },
+            {
+                label: "Lateral",
+                action: "answerPlateLocation('lateral')"
+            },
+            {
+                label: "Other",
+                action: "answerPlateLocation('other')"
+            },
+            {
+                label: "Unknown",
+                action: "answerPlateLocation('unknown')"
+            }
+        ]
+
+    );
+
+}
+
+
+function answerPlateLocation(value) {
+
+    observations.plates.locations = [value];
+
+    showClavaeQuestion();
+
+}
+
+
+// ===============================
+// CLAVAE
+// ===============================
+
+function showClavaeQuestion() {
+
+    renderQuestion(
+
+        "Are clavae present?",
+
+        [
+            {
+                label: "Present",
+                action: "answerClavae('present')"
+            },
+            {
+                label: "Absent",
+                action: "answerClavae('absent')"
+            },
+            {
+                label: "Unknown",
+                action: "answerClavae('unknown')"
+            }
+        ]
+
+    );
+
+}
+
+
+function answerClavae(value) {
+
+    observations.clavae = {
+        present: value
+    };
+
+    if (value === "present") {
+
+        showClavaeTypeQuestion();
+
+    } else {
+
+        showCirrusQuestion("median_cephalic");
+
+    }
+
+}
+
+
+function showClavaeTypeQuestion() {
+
+    renderQuestion(
+
+        "Which types of clavae are present?",
+
+        [
+            {
+                label: "Primary clavae",
+                action: "answerClavaeType('primary')"
+            },
+            {
+                label: "Secondary clavae",
+                action: "answerClavaeType('secondary')"
+            },
+            {
+                label: "Both primary and secondary",
+                action: "answerClavaeType('both')"
+            },
+            {
+                label: "Other",
+                action: "answerClavaeType('other')"
+            },
+            {
+                label: "Unknown",
+                action: "answerClavaeType('unknown')"
+            }
+        ]
+
+    );
+
+}
+
+
+function answerClavaeType(value) {
+
+    observations.clavae.type = value;
+
+    showCirrusQuestion("median_cephalic");
+
+}
+
+
+// ===============================
+// CIRRI
+// ===============================
+
+const cirrusQuestions = {
+
+    median_cephalic: "Is a median cephalic cirrus present?",
+
+    internal_cephalic: "Are internal cephalic cirri present?",
+
+    external_cephalic: "Are external cephalic cirri present?",
+
+    lateral: "Are lateral cirri present?",
+
+    E: "Is cirrus E present?"
+
+};
+
+
+function showCirrusQuestion(type) {
+
+    renderQuestion(
+
+        cirrusQuestions[type],
+
+        [
+            {
+                label: "Present",
+                action: `answerCirrus('${type}', 'present')`
+            },
+            {
+                label: "Absent",
+                action: `answerCirrus('${type}', 'absent')`
+            },
+            {
+                label: "Unknown",
+                action: `answerCirrus('${type}', 'unknown')`
+            }
+        ]
+
+    );
+
+}
+
+
+function answerCirrus(type, value) {
+
+    if (!observations.cirri) {
+
+        observations.cirri = {};
+
+    }
+
+    observations.cirri[type] = {
+        present: value
+    };
+
+
+    const order = [
+        "median_cephalic",
+        "internal_cephalic",
+        "external_cephalic",
+        "lateral",
+        "E"
+    ];
+
+    const index = order.indexOf(type);
+
+    if (index < order.length - 1) {
+
+        showCirrusQuestion(order[index + 1]);
+
+    } else {
+
+        showOtherCirriQuestion();
+
+    }
+
+}
+
+
+function showOtherCirriQuestion() {
+
+    renderQuestion(
+
+        "Are other identifiable cirri present?",
+
+        [
+            {
+                label: "Present",
+                action: "answerOtherCirri('present')"
+            },
+            {
+                label: "Absent",
+                action: "answerOtherCirri('absent')"
+            },
+            {
+                label: "Unknown",
+                action: "answerOtherCirri('unknown')"
+            }
+        ]
+
+    );
+
+}
+
+
+function answerOtherCirri(value) {
+
+    observations.cirri.other = {
+        present: value,
+        locations: []
+    };
+
+    if (value === "present") {
+
+        showOtherCirriLocationQuestion();
+
+    } else {
+
+        showSensoryStructuresQuestion();
+
+    }
+
+}
+
+
+function showOtherCirriLocationQuestion() {
+
+    renderQuestion(
+
+        "Where are the other cirri located?",
+
+        [
+            {
+                label: "Head",
+                action: "answerOtherCirriLocation('head')"
+            },
+            {
+                label: "Lateral",
+                action: "answerOtherCirriLocation('lateral')"
+            },
+            {
+                label: "Dorsal",
+                action: "answerOtherCirriLocation('dorsal')"
+            },
+            {
+                label: "Near leg I",
+                action: "answerOtherCirriLocation('near_leg_I')"
+            },
+            {
+                label: "Near leg II",
+                action: "answerOtherCirriLocation('near_leg_II')"
+            },
+            {
+                label: "Near leg III",
+                action: "answerOtherCirriLocation('near_leg_III')"
+            },
+            {
+                label: "Near leg IV",
+                action: "answerOtherCirriLocation('near_leg_IV')"
+            },
+            {
+                label: "Other",
+                action: "answerOtherCirriLocation('other')"
+            },
+            {
+                label: "Unknown",
+                action: "answerOtherCirriLocation('unknown')"
+            }
+        ]
+
+    );
+
+}
+
+
+function answerOtherCirriLocation(value) {
+
+    observations.cirri.other.locations = [value];
+
+    showSensoryStructuresQuestion();
+
+}
+
+
+// ===============================
+// SENSORY SPINES / PAPILLAE
+// ===============================
+
+function showSensoryStructuresQuestion() {
+
+    renderQuestion(
+
+        "Are sensory spines or papillae present?",
+
+        [
+            {
+                label: "Present",
+                action: "answerSensoryStructures('present')"
+            },
+            {
+                label: "Absent",
+                action: "answerSensoryStructures('absent')"
+            },
+            {
+                label: "Unknown",
+                action: "answerSensoryStructures('unknown')"
+            }
+        ]
+
+    );
+
+}
+
+
+function answerSensoryStructures(value) {
+
+    observations.sensory_spines_papillae = {
+        present: value,
+        locations: []
+    };
+
+    if (value === "present") {
+
+        showSensoryLocationQuestion();
+
+    } else {
+
+        showLegQuestion("I");
+
+    }
+
+}
+
+
+function showSensoryLocationQuestion() {
+
+    renderQuestion(
+
+        "Where are sensory spines/papillae present?",
+
+        [
+            {
+                label: "Head",
+                action: "answerSensoryLocation('head')"
+            },
+            {
+                label: "Leg I",
+                action: "answerSensoryLocation('leg_I')"
+            },
+            {
+                label: "Leg II",
+                action: "answerSensoryLocation('leg_II')"
+            },
+            {
+                label: "Leg III",
+                action: "answerSensoryLocation('leg_III')"
+            },
+            {
+                label: "Leg IV",
+                action: "answerSensoryLocation('leg_IV')"
+            },
+            {
+                label: "Dorsal",
+                action: "answerSensoryLocation('dorsal')"
+            },
+            {
+                label: "Lateral",
+                action: "answerSensoryLocation('lateral')"
+            },
+            {
+                label: "Other",
+                action: "answerSensoryLocation('other')"
+            },
+            {
+                label: "Unknown",
+                action: "answerSensoryLocation('unknown')"
+            }
+        ]
+
+    );
+
+}
+
+
+function answerSensoryLocation(value) {
+
+    observations.sensory_spines_papillae.locations = [value];
+
+    showLegQuestion("I");
+
+}
+
+
+// ===============================
+// LEGS
+// ===============================
+
+const legOrder = ["I", "II", "III", "IV"];
+
+
+function showLegQuestion(leg) {
+
+    renderQuestion(
+
+        `How many claws are present on each leg of Leg pair ${leg}?`,
+
+        [
+            {
+                label: "2 claws",
+                action: `answerLegClaws('${leg}', 2)`
+            },
+            {
+                label: "3 claws",
+                action: `answerLegClaws('${leg}', 3)`
+            },
+            {
+                label: "4 claws",
+                action: `answerLegClaws('${leg}', 4)`
+            },
+            {
+                label: "Different between left and right",
+                action: `answerLegClaws('${leg}', 'different')`
+            },
+            {
+                label: "Other",
+                action: `answerLegClaws('${leg}', 'other')`
+            },
+            {
+                label: "Unknown",
+                action: `answerLegClaws('${leg}', 'unknown')`
+            }
+        ]
+
+    );
+
+}
+
+
+function answerLegClaws(leg, value) {
+
+    if (!observations.legs) {
+
+        observations.legs = {};
+
+    }
+
+    if (!observations.legs[leg]) {
+
+        observations.legs[leg] = {};
+
+    }
+
+    observations.legs[leg].claws = value;
+
+    showLegArrangementQuestion(leg);
+
+}
+
+
+function showLegArrangementQuestion(leg) {
+
+    renderQuestion(
+
+        `How are the claws of Leg pair ${leg} arranged in size?`,
+
+        [
+            {
+                label: "Approximately equal",
+                action: `answerLegArrangement('${leg}', 'approximately_equal')`
+            },
+            {
+                label: "Progressively longer from inner → outer",
+                action: `answerLegArrangement('${leg}', 'progressively_longer_inner_to_outer')`
+            },
+            {
+                label: "Progressively shorter from inner → outer",
+                action: `answerLegArrangement('${leg}', 'progressively_shorter_inner_to_outer')`
+            },
+            {
+                label: "Inner claws larger",
+                action: `answerLegArrangement('${leg}', 'inner_larger')`
+            },
+            {
+                label: "Outer claws larger",
+                action: `answerLegArrangement('${leg}', 'outer_larger')`
+            },
+            {
+                label: "Other",
+                action: `answerLegArrangement('${leg}', 'other')`
+            },
+            {
+                label: "Unknown",
+                action: `answerLegArrangement('${leg}', 'unknown')`
+            }
+        ]
+
+    );
+
+}
+
+
+function answerLegArrangement(leg, value) {
+
+    observations.legs[leg].claw_arrangement = value;
+
+    showLegAccessoryPointQuestion(leg);
+
+}
+
+
+function showLegAccessoryPointQuestion(leg) {
+
+    renderQuestion(
+
+        `Are claw accessory points present on Leg pair ${leg}?`,
+
+        [
+            {
+                label: "Present",
+                action: `answerLegAccessoryPoints('${leg}', true)`
+            },
+            {
+                label: "Absent",
+                action: `answerLegAccessoryPoints('${leg}', false)`
+            },
+            {
+                label: "Unknown",
+                action: `answerLegAccessoryPoints('${leg}', 'unknown')`
+            }
+        ]
+
+    );
+
+}
+
+
+function answerLegAccessoryPoints(leg, value) {
+
+    observations.legs[leg].claw_accessory_points = value;
+
+    if (value === true) {
+
+        showAccessoryPointLocationQuestion(leg);
+
+    } else {
+
+        showBasalSpurArrangementQuestion(leg);
+
+    }
+
+}
+
+
+function showAccessoryPointLocationQuestion(leg) {
+
+    renderQuestion(
+
+        `Which claws possess accessory points on Leg pair ${leg}?`,
+
+        [
+            {
+                label: "Primary claws",
+                action: `answerAccessoryPointLocation('${leg}', 'primary_claws')`
+            },
+            {
+                label: "Secondary claws",
+                action: `answerAccessoryPointLocation('${leg}', 'secondary_claws')`
+            },
+            {
+                label: "Inner claws",
+                action: `answerAccessoryPointLocation('${leg}', 'inner_claws')`
+            },
+            {
+                label: "Outer claws",
+                action: `answerAccessoryPointLocation('${leg}', 'outer_claws')`
+            },
+            {
+                label: "Basal spurs",
+                action: `answerAccessoryPointLocation('${leg}', 'basal_spurs')`
+            },
+            {
+                label: "Other",
+                action: `answerAccessoryPointLocation('${leg}', 'other')`
+            },
+            {
+                label: "Unknown",
+                action: `answerAccessoryPointLocation('${leg}', 'unknown')`
+            }
+        ]
+
+    );
+
+}
+
+
+function answerAccessoryPointLocation(leg, value) {
+
+    observations.legs[leg].accessory_point_locations = [value];
+
+    showBasalSpurArrangementQuestion(leg);
+
+}
+
+
+// ===============================
+// BASAL SPURS
+// ===============================
+
+function showBasalSpurArrangementQuestion(leg) {
+
+    renderQuestion(
+
+        `How are the basal spurs of Leg pair ${leg} arranged?`,
+
+        [
+            {
+                label: "Widely divergent",
+                action: `answerBasalSpurArrangement('${leg}', 'widely_divergent')`
+            },
+            {
+                label: "Slightly divergent",
+                action: `answerBasalSpurArrangement('${leg}', 'slightly_divergent')`
+            },
+            {
+                label: "Closely parallel",
+                action: `answerBasalSpurArrangement('${leg}', 'closely_parallel')`
+            },
+            {
+                label: "Parallel",
+                action: `answerBasalSpurArrangement('${leg}', 'parallel')`
+            },
+            {
+                label: "Other",
+                action: `answerBasalSpurArrangement('${leg}', 'other')`
+            },
+            {
+                label: "Unknown",
+                action: `answerBasalSpurArrangement('${leg}', 'unknown')`
+            }
+        ]
+
+    );
+
+}
+
+
+function answerBasalSpurArrangement(leg, value) {
+
+    observations.legs[leg].basal_spur_arrangement = value;
+
+    showBasalSpurOrientationQuestion(leg);
+
+}
+
+
+function showBasalSpurOrientationQuestion(leg) {
+
+    renderQuestion(
+
+        `In what direction are the basal spurs of Leg pair ${leg} oriented?`,
+
+        [
+            {
+                label: "Horizontal",
+                action: `answerBasalSpurOrientation('${leg}', 'horizontal')`
+            },
+            {
+                label: "Upward",
+                action: `answerBasalSpurOrientation('${leg}', 'upward')`
+            },
+            {
+                label: "Downward",
+                action: `answerBasalSpurOrientation('${leg}', 'downward')`
+            },
+            {
+                label: "Toward the claw",
+                action: `answerBasalSpurOrientation('${leg}', 'toward_claw')`
+            },
+            {
+                label: "Away from the claw",
+                action: `answerBasalSpurOrientation('${leg}', 'away_from_claw')`
+            },
+            {
+                label: "Other",
+                action: `answerBasalSpurOrientation('${leg}', 'other')`
+            },
+            {
+                label: "Unknown",
+                action: `answerBasalSpurOrientation('${leg}', 'unknown')`
+            }
+        ]
+
+    );
+
+}
+
+
+function answerBasalSpurOrientation(leg, value) {
+
+    observations.legs[leg].basal_spur_orientation = value;
+
+    const index = legOrder.indexOf(leg);
+
+    if (index < legOrder.length - 1) {
+
+        showLegQuestion(legOrder[index + 1]);
+
+    } else {
+
+        showResult();
+
+    }
+
+}
+
+
+// ===============================
+// RESULTS
+// ===============================
+
+function showResult() {
+
+    const results = document.getElementById("results");
+
+    let matches = [];
+
+    for (const id in speciesData) {
+
+        const species = speciesData[id];
+
+        if (!species.identification) {
+            continue;
+        }
+
+        if (
+            species.identification.environment
+            &&
+            species.identification.environment !== observations.environment
+        ) {
+            continue;
+        }
+
+        matches.push(species);
+
+    }
 
 
     if (matches.length === 0) {
@@ -856,13 +1183,11 @@ function showResult() {
 
             <div class="identifier-result">
 
-                <h2>
-                    No matches found
-                </h2>
+                <h2>No matches found</h2>
 
                 <p>
-                    No species are currently available
-                    in the catalogue.
+                    No species currently match all
+                    available observations.
                 </p>
 
             </div>
@@ -878,143 +1203,26 @@ function showResult() {
 
         <div class="identifier-result">
 
-            <h2>
-                Most likely results
-            </h2>
+            <h2>Possible matches</h2>
 
             <p>
-                Based on the observations provided:
+                Based on the information currently available:
             </p>
 
-            ${matches.map(match => `
+            ${matches.map(species => `
 
-                <div class="identifier-match">
-
-                    <p>
-
-                        <strong>
-
-                            <a href="${match.species.page}">
-
-                                <i>
-                                    ${match.species.scientific_name}
-                                </i>
-
-                            </a>
-
-                        </strong>
-
-                    </p>
-
-                    <p>
-                        Match:
-                        <strong>
-                            ${match.score}%
-                        </strong>
-                    </p>
-
-                </div>
+                <p>
+                    <strong>
+                        <a href="${species.page}">
+                            <i>${species.scientific_name}</i>
+                        </a>
+                    </strong>
+                </p>
 
             `).join("")}
 
         </div>
 
     `;
-
-}
-
-
-// ============================================================
-// MATCH CALCULATION
-// ============================================================
-
-function calculateMatch(species) {
-
-    let total = 0;
-    let matched = 0;
-
-
-    const identification =
-        species.identification;
-
-
-    for (const key in observations) {
-
-        const observed =
-            observations[key];
-
-
-        if (observed === "unknown") {
-            continue;
-        }
-
-
-        const expected =
-            identification[key];
-
-
-        if (expected === undefined) {
-            continue;
-        }
-
-
-        total++;
-
-
-        if (
-            valuesMatch(
-                observed,
-                expected
-            )
-        ) {
-
-            matched++;
-
-        }
-
-    }
-
-
-    if (total === 0) {
-        return 0;
-    }
-
-
-    return Math.round(
-        (matched / total) * 100
-    );
-
-}
-
-
-// ============================================================
-// COMPARE VALUES
-// ============================================================
-
-function valuesMatch(observed, expected) {
-
-    if (observed === expected) {
-        return true;
-    }
-
-
-    if (
-        Array.isArray(observed) &&
-        Array.isArray(expected)
-    ) {
-
-        return observed.some(value =>
-            expected.includes(value)
-        );
-
-    }
-
-
-    return false;
-
-}
-
-
-    return false;
 
 }
