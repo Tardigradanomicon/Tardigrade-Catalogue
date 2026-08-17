@@ -2,7 +2,9 @@ let speciesData = {};
 let observations = {};
 
 
+// --------------------------------------------------
 // Load species data
+// --------------------------------------------------
 
 fetch("data/species.json")
     .then(response => response.json())
@@ -40,29 +42,13 @@ function renderQuestions() {
 
             <div class="identifier-options">
 
-                ${choiceButton(
-                    "Marine",
-                    "environment",
-                    "marine"
-                )}
+                ${choiceButton("Marine", "environment", "marine")}
 
-                ${choiceButton(
-                    "Freshwater",
-                    "environment",
-                    "freshwater"
-                )}
+                ${choiceButton("Freshwater", "environment", "freshwater")}
 
-                ${choiceButton(
-                    "Terrestrial",
-                    "environment",
-                    "terrestrial"
-                )}
+                ${choiceButton("Terrestrial", "environment", "terrestrial")}
 
-                ${choiceButton(
-                    "Unknown",
-                    "environment",
-                    "unknown"
-                )}
+                ${choiceButton("Unknown", "environment", "unknown")}
 
             </div>
 
@@ -81,23 +67,11 @@ function renderQuestions() {
 
             <div class="identifier-options">
 
-                ${choiceButton(
-                    "Present",
-                    "eyes_present",
-                    true
-                )}
+                ${choiceButton("Present", "eyes_present", true)}
 
-                ${choiceButton(
-                    "Absent",
-                    "eyes_present",
-                    false
-                )}
+                ${choiceButton("Absent", "eyes_present", false)}
 
-                ${choiceButton(
-                    "Unknown",
-                    "eyes_present",
-                    "unknown"
-                )}
+                ${choiceButton("Unknown", "eyes_present", "unknown")}
 
             </div>
 
@@ -116,23 +90,11 @@ function renderQuestions() {
 
             <div class="identifier-options">
 
-                ${choiceButton(
-                    "Present",
-                    "plates_present",
-                    true
-                )}
+                ${choiceButton("Present", "plates_present", true)}
 
-                ${choiceButton(
-                    "Absent",
-                    "plates_present",
-                    false
-                )}
+                ${choiceButton("Absent", "plates_present", false)}
 
-                ${choiceButton(
-                    "Unknown",
-                    "plates_present",
-                    "unknown"
-                )}
+                ${choiceButton("Unknown", "plates_present", "unknown")}
 
             </div>
 
@@ -151,23 +113,11 @@ function renderQuestions() {
 
             <div class="identifier-options">
 
-                ${choiceButton(
-                    "Present",
-                    "clavae_present",
-                    true
-                )}
+                ${choiceButton("Present", "clavae_present", true)}
 
-                ${choiceButton(
-                    "Absent",
-                    "clavae_present",
-                    false
-                )}
+                ${choiceButton("Absent", "clavae_present", false)}
 
-                ${choiceButton(
-                    "Unknown",
-                    "clavae_present",
-                    "unknown"
-                )}
+                ${choiceButton("Unknown", "clavae_present", "unknown")}
 
             </div>
 
@@ -231,23 +181,11 @@ function renderQuestions() {
 
             <div class="identifier-options">
 
-                ${choiceButton(
-                    "Present",
-                    "other_cirri",
-                    true
-                )}
+                ${choiceButton("Present", "other_cirri", true)}
 
-                ${choiceButton(
-                    "Absent",
-                    "other_cirri",
-                    false
-                )}
+                ${choiceButton("Absent", "other_cirri", false)}
 
-                ${choiceButton(
-                    "Unknown",
-                    "other_cirri",
-                    "unknown"
-                )}
+                ${choiceButton("Unknown", "other_cirri", "unknown")}
 
             </div>
 
@@ -256,7 +194,7 @@ function renderQuestions() {
         </div>
 
 
-        <!-- 11 SENSORY SPINES -->
+        <!-- 11 SENSORY SPINES / PAPILLAE -->
 
         <div class="identifier-question">
 
@@ -316,6 +254,7 @@ function renderQuestions() {
         <div class="find-matches-container">
 
             <button
+                type="button"
                 class="find-matches-button"
                 onclick="findMatches()"
             >
@@ -326,6 +265,8 @@ function renderQuestions() {
 
     `;
 
+    updateConditionalQuestions();
+
 }
 
 
@@ -335,9 +276,19 @@ function renderQuestions() {
 
 function choiceButton(label, key, value) {
 
+    const currentValue =
+        getNestedValue(observations, key);
+
+    const isSelected =
+        currentValue !== undefined &&
+        String(currentValue) === String(value);
+
     return `
         <button
             type="button"
+            class="${isSelected ? "selected" : ""}"
+            data-key="${key}"
+            data-value="${String(value)}"
             onclick='recordAnswer("${key}", ${JSON.stringify(value)})'
         >
             ${label}
@@ -353,6 +304,9 @@ function choiceButton(label, key, value) {
 
 function cirrusQuestion(number, question, key) {
 
+    const observationKey =
+        "cirri." + key;
+
     return `
 
         <div class="identifier-question">
@@ -365,19 +319,19 @@ function cirrusQuestion(number, question, key) {
 
                 ${choiceButton(
                     "Present",
-                    "cirri." + key,
+                    observationKey,
                     true
                 )}
 
                 ${choiceButton(
                     "Absent",
-                    "cirri." + key,
+                    observationKey,
                     false
                 )}
 
                 ${choiceButton(
                     "Unknown",
-                    "cirri." + key,
+                    observationKey,
                     "unknown"
                 )}
 
@@ -405,221 +359,251 @@ function legQuestion(number, leg) {
             </h2>
 
 
-            <h3>
-                How many claws are present on each leg?
-            </h3>
+            <!-- CLAW COUNT -->
 
-            <div class="identifier-options">
+            <div class="identifier-subquestion">
 
-                ${choiceButton(
-                    "2 claws",
-                    `legs.${leg}.claws`,
-                    2
-                )}
+                <h3>
+                    How many claws are present on each leg?
+                </h3>
 
-                ${choiceButton(
-                    "3 claws",
-                    `legs.${leg}.claws`,
-                    3
-                )}
+                <div class="identifier-options">
 
-                ${choiceButton(
-                    "4 claws",
-                    `legs.${leg}.claws`,
-                    4
-                )}
+                    ${choiceButton(
+                        "2 claws",
+                        `legs.${leg}.claws`,
+                        2
+                    )}
 
-                ${choiceButton(
-                    "Different between left and right",
-                    `legs.${leg}.claws`,
-                    "different"
-                )}
+                    ${choiceButton(
+                        "3 claws",
+                        `legs.${leg}.claws`,
+                        3
+                    )}
 
-                ${choiceButton(
-                    "Other",
-                    `legs.${leg}.claws`,
-                    "other"
-                )}
+                    ${choiceButton(
+                        "4 claws",
+                        `legs.${leg}.claws`,
+                        4
+                    )}
 
-                ${choiceButton(
-                    "Unknown",
-                    `legs.${leg}.claws`,
-                    "unknown"
-                )}
+                    ${choiceButton(
+                        "Different between left and right",
+                        `legs.${leg}.claws`,
+                        "different"
+                    )}
 
-            </div>
+                    ${choiceButton(
+                        "Other",
+                        `legs.${leg}.claws`,
+                        "other"
+                    )}
 
+                    ${choiceButton(
+                        "Unknown",
+                        `legs.${leg}.claws`,
+                        "unknown"
+                    )}
 
-            <h3>
-                How are the claws arranged in size?
-            </h3>
-
-            <div class="identifier-options">
-
-                ${choiceButton(
-                    "Approximately equal",
-                    `legs.${leg}.claw_arrangement`,
-                    "approximately_equal"
-                )}
-
-                ${choiceButton(
-                    "Progressively longer from inner → outer",
-                    `legs.${leg}.claw_arrangement`,
-                    "progressively_longer_inner_to_outer"
-                )}
-
-                ${choiceButton(
-                    "Progressively shorter from inner → outer",
-                    `legs.${leg}.claw_arrangement`,
-                    "progressively_shorter_inner_to_outer"
-                )}
-
-                ${choiceButton(
-                    "Inner claws larger",
-                    `legs.${leg}.claw_arrangement`,
-                    "inner_larger"
-                )}
-
-                ${choiceButton(
-                    "Outer claws larger",
-                    `legs.${leg}.claw_arrangement`,
-                    "outer_larger"
-                )}
-
-                ${choiceButton(
-                    "Other",
-                    `legs.${leg}.claw_arrangement`,
-                    "other"
-                )}
-
-                ${choiceButton(
-                    "Unknown",
-                    `legs.${leg}.claw_arrangement`,
-                    "unknown"
-                )}
+                </div>
 
             </div>
 
 
-            <h3>
-                Are claw accessory points present?
-            </h3>
+            <!-- CLAW ARRANGEMENT -->
 
-            <div class="identifier-options">
+            <div class="identifier-subquestion">
 
-                ${choiceButton(
-                    "Present",
-                    `legs.${leg}.accessory_points`,
-                    true
-                )}
+                <h3>
+                    How are the claws arranged in size?
+                </h3>
 
-                ${choiceButton(
-                    "Absent",
-                    `legs.${leg}.accessory_points`,
-                    false
-                )}
+                <div class="identifier-options">
 
-                ${choiceButton(
-                    "Unknown",
-                    `legs.${leg}.accessory_points`,
-                    "unknown"
-                )}
+                    ${choiceButton(
+                        "Approximately equal",
+                        `legs.${leg}.claw_arrangement`,
+                        "approximately_equal"
+                    )}
 
-            </div>
+                    ${choiceButton(
+                        "Progressively longer from inner → outer",
+                        `legs.${leg}.claw_arrangement`,
+                        "progressively_longer_inner_to_outer"
+                    )}
 
+                    ${choiceButton(
+                        "Progressively shorter from inner → outer",
+                        `legs.${leg}.claw_arrangement`,
+                        "progressively_shorter_inner_to_outer"
+                    )}
 
-            <h3>
-                How are the basal spurs arranged?
-            </h3>
+                    ${choiceButton(
+                        "Inner claws larger",
+                        `legs.${leg}.claw_arrangement`,
+                        "inner_larger"
+                    )}
 
-            <div class="identifier-options">
+                    ${choiceButton(
+                        "Outer claws larger",
+                        `legs.${leg}.claw_arrangement`,
+                        "outer_larger"
+                    )}
 
-                ${choiceButton(
-                    "Widely divergent",
-                    `legs.${leg}.basal_spur_arrangement`,
-                    "widely_divergent"
-                )}
+                    ${choiceButton(
+                        "Other",
+                        `legs.${leg}.claw_arrangement`,
+                        "other"
+                    )}
 
-                ${choiceButton(
-                    "Slightly divergent",
-                    `legs.${leg}.basal_spur_arrangement`,
-                    "slightly_divergent"
-                )}
+                    ${choiceButton(
+                        "Unknown",
+                        `legs.${leg}.claw_arrangement`,
+                        "unknown"
+                    )}
 
-                ${choiceButton(
-                    "Closely parallel",
-                    `legs.${leg}.basal_spur_arrangement`,
-                    "closely_parallel"
-                )}
-
-                ${choiceButton(
-                    "Parallel",
-                    `legs.${leg}.basal_spur_arrangement`,
-                    "parallel"
-                )}
-
-                ${choiceButton(
-                    "Other",
-                    `legs.${leg}.basal_spur_arrangement`,
-                    "other"
-                )}
-
-                ${choiceButton(
-                    "Unknown",
-                    `legs.${leg}.basal_spur_arrangement`,
-                    "unknown"
-                )}
+                </div>
 
             </div>
 
 
-            <h3>
-                In what direction are the basal spurs oriented?
-            </h3>
+            <!-- ACCESSORY POINTS -->
 
-            <div class="identifier-options">
+            <div class="identifier-subquestion">
 
-                ${choiceButton(
-                    "Horizontal",
-                    `legs.${leg}.basal_spur_orientation`,
-                    "horizontal"
-                )}
+                <h3>
+                    Are claw accessory points present?
+                </h3>
 
-                ${choiceButton(
-                    "Upward",
-                    `legs.${leg}.basal_spur_orientation`,
-                    "upward"
-                )}
+                <div class="identifier-options">
 
-                ${choiceButton(
-                    "Downward",
-                    `legs.${leg}.basal_spur_orientation`,
-                    "downward"
-                )}
+                    ${choiceButton(
+                        "Present",
+                        `legs.${leg}.accessory_points`,
+                        true
+                    )}
 
-                ${choiceButton(
-                    "Toward the claw",
-                    `legs.${leg}.basal_spur_orientation`,
-                    "toward_claw"
-                )}
+                    ${choiceButton(
+                        "Absent",
+                        `legs.${leg}.accessory_points`,
+                        false
+                    )}
 
-                ${choiceButton(
-                    "Away from the claw",
-                    `legs.${leg}.basal_spur_orientation`,
-                    "away_from_claw"
-                )}
+                    ${choiceButton(
+                        "Unknown",
+                        `legs.${leg}.accessory_points`,
+                        "unknown"
+                    )}
 
-                ${choiceButton(
-                    "Other",
-                    `legs.${leg}.basal_spur_orientation`,
-                    "other"
-                )}
+                </div>
 
-                ${choiceButton(
-                    "Unknown",
-                    `legs.${leg}.basal_spur_orientation`,
-                    "unknown"
-                )}
+            </div>
+
+
+            <!-- BASAL SPUR ARRANGEMENT -->
+
+            <div class="identifier-subquestion">
+
+                <h3>
+                    How are the basal spurs arranged?
+                </h3>
+
+                <div class="identifier-options">
+
+                    ${choiceButton(
+                        "Widely divergent",
+                        `legs.${leg}.basal_spur_arrangement`,
+                        "widely_divergent"
+                    )}
+
+                    ${choiceButton(
+                        "Slightly divergent",
+                        `legs.${leg}.basal_spur_arrangement`,
+                        "slightly_divergent"
+                    )}
+
+                    ${choiceButton(
+                        "Closely parallel",
+                        `legs.${leg}.basal_spur_arrangement`,
+                        "closely_parallel"
+                    )}
+
+                    ${choiceButton(
+                        "Parallel",
+                        `legs.${leg}.basal_spur_arrangement`,
+                        "parallel"
+                    )}
+
+                    ${choiceButton(
+                        "Other",
+                        `legs.${leg}.basal_spur_arrangement`,
+                        "other"
+                    )}
+
+                    ${choiceButton(
+                        "Unknown",
+                        `legs.${leg}.basal_spur_arrangement`,
+                        "unknown"
+                    )}
+
+                </div>
+
+            </div>
+
+
+            <!-- BASAL SPUR ORIENTATION -->
+
+            <div class="identifier-subquestion">
+
+                <h3>
+                    In what direction are the basal spurs oriented?
+                </h3>
+
+                <div class="identifier-options">
+
+                    ${choiceButton(
+                        "Horizontal",
+                        `legs.${leg}.basal_spur_orientation`,
+                        "horizontal"
+                    )}
+
+                    ${choiceButton(
+                        "Upward",
+                        `legs.${leg}.basal_spur_orientation`,
+                        "upward"
+                    )}
+
+                    ${choiceButton(
+                        "Downward",
+                        `legs.${leg}.basal_spur_orientation`,
+                        "downward"
+                    )}
+
+                    ${choiceButton(
+                        "Toward the claw",
+                        `legs.${leg}.basal_spur_orientation`,
+                        "toward_claw"
+                    )}
+
+                    ${choiceButton(
+                        "Away from the claw",
+                        `legs.${leg}.basal_spur_orientation`,
+                        "away_from_claw"
+                    )}
+
+                    ${choiceButton(
+                        "Other",
+                        `legs.${leg}.basal_spur_orientation`,
+                        "other"
+                    )}
+
+                    ${choiceButton(
+                        "Unknown",
+                        `legs.${leg}.basal_spur_orientation`,
+                        "unknown"
+                    )}
+
+                </div>
 
             </div>
 
@@ -640,6 +624,50 @@ function recordAnswer(key, value) {
 
     updateConditionalQuestions();
 
+    updateSelectedButtons();
+
+}
+
+
+// --------------------------------------------------
+// Update visual selection state
+// --------------------------------------------------
+
+function updateSelectedButtons() {
+
+    const buttons =
+        document.querySelectorAll(
+            "#questions button[data-key]"
+        );
+
+    buttons.forEach(button => {
+
+        const key =
+            button.dataset.key;
+
+        const buttonValue =
+            button.dataset.value;
+
+        const currentValue =
+            getNestedValue(observations, key);
+
+        if (
+            currentValue !== undefined &&
+            String(currentValue) === buttonValue
+        ) {
+
+            button.classList.add("selected");
+
+        }
+
+        else {
+
+            button.classList.remove("selected");
+
+        }
+
+    });
+
 }
 
 
@@ -649,21 +677,34 @@ function recordAnswer(key, value) {
 
 function setNestedValue(object, path, value) {
 
-    const parts = path.split(".");
+    const parts =
+        path.split(".");
 
-    let current = object;
+    let current =
+        object;
 
-    for (let i = 0; i < parts.length - 1; i++) {
+    for (
+        let i = 0;
+        i < parts.length - 1;
+        i++
+    ) {
 
-        if (!current[parts[i]]) {
+        if (
+            !current[parts[i]] ||
+            typeof current[parts[i]] !== "object"
+        ) {
+
             current[parts[i]] = {};
+
         }
 
-        current = current[parts[i]];
+        current =
+            current[parts[i]];
 
     }
 
-    current[parts[parts.length - 1]] = value;
+    current[parts[parts.length - 1]] =
+        value;
 
 }
 
@@ -675,11 +716,18 @@ function setNestedValue(object, path, value) {
 function updateConditionalQuestions() {
 
     updateEyeQuestion();
+
     updatePlateQuestion();
+
     updateClavaeQuestion();
+
     updateEnvironmentQuestion();
+
     updateOtherCirriQuestion();
+
     updateSensoryQuestion();
+
+    updateSelectedButtons();
 
 }
 
@@ -695,6 +743,7 @@ function updateEnvironmentQuestion() {
 
     if (!container) return;
 
+
     if (
         observations.environment === "marine" ||
         observations.environment === "freshwater"
@@ -707,6 +756,10 @@ function updateEnvironmentQuestion() {
                 <h3>
                     What was the specimen associated with?
                 </h3>
+
+                <p>
+                    Select one.
+                </p>
 
                 <div class="identifier-options">
 
@@ -760,7 +813,9 @@ function updateEnvironmentQuestion() {
 
     }
 
-    else if (observations.environment === "terrestrial") {
+    else if (
+        observations.environment === "terrestrial"
+    ) {
 
         container.innerHTML = `
 
@@ -769,6 +824,10 @@ function updateEnvironmentQuestion() {
                 <h3>
                     What was the specimen associated with?
                 </h3>
+
+                <p>
+                    Select one.
+                </p>
 
                 <div class="identifier-options">
 
@@ -842,7 +901,10 @@ function updateEyeQuestion() {
 
     if (!container) return;
 
-    if (observations.eyes_present === true) {
+
+    if (
+        observations.eyes_present === true
+    ) {
 
         container.innerHTML = `
 
@@ -918,7 +980,10 @@ function updatePlateQuestion() {
 
     if (!container) return;
 
-    if (observations.plates_present === true) {
+
+    if (
+        observations.plates_present === true
+    ) {
 
         container.innerHTML = `
 
@@ -1022,7 +1087,10 @@ function updateClavaeQuestion() {
 
     if (!container) return;
 
-    if (observations.clavae_present === true) {
+
+    if (
+        observations.clavae_present === true
+    ) {
 
         container.innerHTML = `
 
@@ -1090,7 +1158,10 @@ function updateOtherCirriQuestion() {
 
     if (!container) return;
 
-    if (observations.other_cirri === true) {
+
+    if (
+        observations.other_cirri === true
+    ) {
 
         container.innerHTML = `
 
@@ -1188,7 +1259,10 @@ function updateSensoryQuestion() {
 
     if (!container) return;
 
-    if (observations.sensory_structures === true) {
+
+    if (
+        observations.sensory_structures === true
+    ) {
 
         container.innerHTML = `
 
@@ -1281,9 +1355,18 @@ function updateSensoryQuestion() {
 
 function multiButton(label, key, value) {
 
+    const currentValues =
+        observations[key] || [];
+
+    const isSelected =
+        currentValues.includes(value);
+
     return `
         <button
             type="button"
+            class="${isSelected ? "selected" : ""}"
+            data-multi-key="${key}"
+            data-multi-value="${value}"
             onclick='toggleMultiAnswer("${key}", "${value}", this)'
         >
             ${label}
@@ -1296,11 +1379,15 @@ function multiButton(label, key, value) {
 function toggleMultiAnswer(key, value, button) {
 
     if (!observations[key]) {
+
         observations[key] = [];
+
     }
+
 
     const index =
         observations[key].indexOf(value);
+
 
     if (index === -1) {
 
@@ -1335,17 +1422,23 @@ function findMatches() {
 
     for (const id in speciesData) {
 
-        const species = speciesData[id];
+        const species =
+            speciesData[id];
+
 
         if (!species.identification) {
+
             continue;
+
         }
 
 
-        if (speciesMatches(
-            species.identification,
-            observations
-        )) {
+        if (
+            speciesMatches(
+                species.identification,
+                observations
+            )
+        ) {
 
             matches.push(species);
 
@@ -1423,35 +1516,63 @@ function findMatches() {
 // Species matching
 // --------------------------------------------------
 
-function speciesMatches(speciesID, observations) {
+function speciesMatches(
+    speciesID,
+    observations
+) {
 
     for (const key in observations) {
 
         const observedValue =
             observations[key];
 
+
         if (
             observedValue === undefined ||
             observedValue === "unknown"
         ) {
+
             continue;
+
         }
 
 
         const speciesValue =
-            getNestedValue(speciesID, key);
+            getNestedValue(
+                speciesID,
+                key
+            );
 
 
-        if (speciesValue === undefined) {
+        /*
+         * If the catalogue does not yet contain
+         * information for a character, do not
+         * eliminate the species.
+         */
+
+        if (
+            speciesValue === undefined
+        ) {
+
             continue;
+
         }
 
 
-        if (Array.isArray(observedValue)) {
+        // Multi-select observation
 
-            if (!Array.isArray(speciesValue)) {
+        if (
+            Array.isArray(observedValue)
+        ) {
+
+            if (
+                !Array.isArray(speciesValue)
+            ) {
+
                 continue;
+
             }
+
 
             const allMatch =
                 observedValue.every(
@@ -1459,21 +1580,32 @@ function speciesMatches(speciesID, observations) {
                         speciesValue.includes(value)
                 );
 
+
             if (!allMatch) {
+
                 return false;
+
             }
 
         }
 
+
+        // Normal observation
+
         else {
 
-            if (speciesValue !== observedValue) {
+            if (
+                speciesValue !== observedValue
+            ) {
+
                 return false;
+
             }
 
         }
 
     }
+
 
     return true;
 
@@ -1484,13 +1616,17 @@ function speciesMatches(speciesID, observations) {
 // Get nested value
 // --------------------------------------------------
 
-function getNestedValue(object, path) {
+function getNestedValue(
+    object,
+    path
+) {
 
     const parts =
         path.split(".");
 
     let current =
         object;
+
 
     for (const part of parts) {
 
@@ -1503,10 +1639,12 @@ function getNestedValue(object, path) {
 
         }
 
+
         current =
             current[part];
 
     }
+
 
     return current;
 
