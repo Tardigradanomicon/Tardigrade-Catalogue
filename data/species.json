@@ -1,183 +1,227 @@
-"anisonyches-deliquus": {
-  "scientific_name": "Anisonyches deliquus",
-  "authority": "Chang & Rho, 1998",
-  "page": "species/Anisonyches-deliquus.html",
+{
+  "anisonyches-deliquus": {
+    "scientific_name": "Anisonyches deliquus",
+    "authority": "Chang & Rho, 1998",
+    "page": "species/Anisonyches-deliquus.html",
 
-  "taxonomy": {
-    "phylum": "Tardigrada",
-    "class": "Heterotardigrada",
-    "order": "Arthrotardigrada",
-    "family": "Anisonychidae",
-    "genus": "Anisonyches"
+    "taxonomy": {
+      "phylum": "Tardigrada",
+      "class": "Heterotardigrada",
+      "order": "Arthrotardigrada",
+      "family": "Anisonychidae",
+      "genus": "Anisonyches"
+    },
+
+    "identification": {
+      "environment": "marine",
+
+      "ecological_association": [],
+
+      "eyes": {
+        "present": true,
+        "color": "black"
+      },
+
+      "plates": {
+        "present": false,
+        "locations": []
+      },
+
+      "clavae": {
+        "present": false,
+        "primary": false,
+        "secondary": false
+      },
+
+      "cirri": {
+        "median_cephalic": {
+          "present": true
+        },
+        "internal_cephalic": {
+          "present": true
+        },
+        "external_cephalic": {
+          "present": true
+        },
+        "lateral": {
+          "present": true
+        },
+        "E": {
+          "present": true,
+          "location": "dorsal_above_leg_IV"
+        },
+        "other": []
+      },
+
+      "sensory_spines_papillae": {
+        "present": false,
+        "locations": []
+      },
+
+      "legs": {
+        "I": {
+          "claws": 4,
+          "sensory_structures": [],
+          "claw_arrangement": null,
+          "claw_accessory_points": true,
+          "accessory_point_locations": [],
+          "basal_spur_arrangement": null,
+          "basal_spur_orientation": null
+        },
+
+        "II": {
+          "claws": 4,
+          "sensory_structures": [],
+          "claw_arrangement": null,
+          "claw_accessory_points": true,
+          "accessory_point_locations": [],
+          "basal_spur_arrangement": null,
+          "basal_spur_orientation": null
+        },
+
+        "III": {
+          "claws": 4,
+          "sensory_structures": [],
+          "claw_arrangement": null,
+          "claw_accessory_points": true,
+          "accessory_point_locations": [],
+          "basal_spur_arrangement": null,
+          "basal_spur_orientation": null
+        },
+
+        "IV": {
+          "claws": 3,
+          "sensory_structures": [],
+          "claw_arrangement": null,
+          "claw_accessory_points": true,
+          "accessory_point_locations": [],
+          "basal_spur_arrangement": null,
+          "basal_spur_orientation": null
+        }
+      },
+
+      "buccopharyngeal": {},
+      "specialized_characters": {}
+    }
   },
 
-  "identification": {
+  "anisonyches-diakidius": {
+    "scientific_name": "Anisonyches diakidius",
+    "authority": "Pollock, 1975",
+    "page": "species/Anisonyches-diakidius.html",
 
-    "environment": "marine",
-
-    "eyes": {
-      "present": true,
-      "color": "black"
+    "taxonomy": {
+      "phylum": "Tardigrada",
+      "class": "Heterotardigrada",
+      "order": "Arthrotardigrada",
+      "family": "Anisonychidae",
+      "genus": "Anisonyches"
     },
 
-    "plates": {
-      "present": false
-    },
+    "identification": {
+      "environment": "marine",
 
-    "clavae": {
-      "primary": false,
-      "secondary": false
-    },
+      "ecological_association": [
+        "sediment"
+      ],
 
-    "cirri": {
-
-      "median_cephalic": {
-        "present": true
-      },
-
-      "internal_cephalic": {
-        "present": true
-      },
-
-      "external_cephalic": {
-        "present": true
-      },
-
-      "lateral": {
-        "present": true
-      },
-
-      "cirrus_E": {
+      "eyes": {
         "present": true,
-        "location": "dorsal, above leg IV"
-      }
-    },
-
-    "legs": {
-
-      "I": {
-        "claws": 4,
-        "sensory_spine": false,
-        "anterior_papilla": false
+        "color": "black"
       },
 
-      "II": {
-        "claws": 4,
-        "sensory_spine": false,
-        "anterior_papilla": false
+      "plates": {
+        "present": false,
+        "locations": []
       },
 
-      "III": {
-        "claws": 4,
-        "sensory_spine": false,
-        "anterior_papilla": false
-      },
-
-      "IV": {
-        "claws": 3,
-        "sensory_spine": false,
-        "anterior_papilla": false
-      }
-    },
-
-    "claw_accessory_points": true
-  }
-},
-
-"anisonyches-diakidius": {
-  "scientific_name": "Anisonyches diakidius",
-  "authority": "Pollock, 1975",
-  "page": "species/Anisonyches-diakidius.html",
-
-  "taxonomy": {
-    "phylum": "Tardigrada",
-    "class": "Heterotardigrada",
-    "order": "Arthrotardigrada",
-    "family": "Anisonychidae",
-    "genus": "Anisonyches"
-  },
-
-  "identification": {
-
-    "environment": "marine",
-
-    "eyes": {
-      "present": true,
-      "color": "black"
-    },
-
-    "plates": {
-      "present": false
-    },
-
-    "clavae": {
-      "primary": true,
-      "secondary": true
-    },
-
-    "cirri": {
-
-      "median_cephalic": {
-        "present": true
-      },
-
-      "internal_cephalic": {
-        "present": true
-      },
-
-      "external_cephalic": {
-        "present": true
-      },
-
-      "lateral": {
-        "present": true
-      },
-
-      "cirrus_E": {
+      "clavae": {
         "present": true,
-        "location": "dorsal, anterior to leg IV"
-      }
-    },
-
-    "legs": {
-
-      "I": {
-        "claws": 4,
-        "sensory_spine": false,
-        "anterior_papilla": false,
-        "claw_arrangement": "progressively_longer_inner_to_outer",
-        "basal_spur_arrangement": "widely_divergent",
-        "basal_spur_orientation": "horizontal"
+        "primary": true,
+        "secondary": true
       },
 
-      "II": {
-        "claws": 4,
-        "sensory_spine": false,
-        "anterior_papilla": false,
-        "claw_arrangement": "progressively_longer_inner_to_outer",
-        "basal_spur_arrangement": "widely_divergent",
-        "basal_spur_orientation": "horizontal"
+      "cirri": {
+        "median_cephalic": {
+          "present": true
+        },
+        "internal_cephalic": {
+          "present": true
+        },
+        "external_cephalic": {
+          "present": true
+        },
+        "lateral": {
+          "present": true
+        },
+        "E": {
+          "present": true,
+          "location": "dorsal_anterior_to_leg_IV"
+        },
+        "other": []
       },
 
-      "III": {
-        "claws": 4,
-        "sensory_spine": false,
-        "anterior_papilla": false,
-        "claw_arrangement": "progressively_longer_inner_to_outer",
-        "basal_spur_arrangement": "widely_divergent",
-        "basal_spur_orientation": "horizontal"
+      "sensory_spines_papillae": {
+        "present": true,
+        "locations": [
+          "leg_IV"
+        ]
       },
 
-      "IV": {
-        "claws": 3,
-        "sensory_spine": false,
-        "anterior_papilla": true,
-        "claw_arrangement": "approximately_equal",
-        "basal_spur_arrangement": "widely_divergent",
-        "basal_spur_orientation": "horizontal"
-      }
-    },
+      "legs": {
+        "I": {
+          "claws": 4,
+          "sensory_structures": [],
+          "claw_arrangement": "progressively_longer_inner_to_outer",
+          "claw_accessory_points": true,
+          "accessory_point_locations": [
+            "medial_claws"
+          ],
+          "basal_spur_arrangement": "widely_divergent",
+          "basal_spur_orientation": "horizontal"
+        },
 
-    "claw_accessory_points": true
+        "II": {
+          "claws": 4,
+          "sensory_structures": [],
+          "claw_arrangement": "progressively_longer_inner_to_outer",
+          "claw_accessory_points": true,
+          "accessory_point_locations": [
+            "medial_claws"
+          ],
+          "basal_spur_arrangement": "widely_divergent",
+          "basal_spur_orientation": "horizontal"
+        },
+
+        "III": {
+          "claws": 4,
+          "sensory_structures": [],
+          "claw_arrangement": "progressively_longer_inner_to_outer",
+          "claw_accessory_points": true,
+          "accessory_point_locations": [
+            "medial_claws"
+          ],
+          "basal_spur_arrangement": "widely_divergent",
+          "basal_spur_orientation": "horizontal"
+        },
+
+        "IV": {
+          "claws": 3,
+          "sensory_structures": [
+            "papilla"
+          ],
+          "claw_arrangement": "approximately_equal",
+          "claw_accessory_points": true,
+          "accessory_point_locations": [
+            "inner_claws"
+          ],
+          "basal_spur_arrangement": "widely_divergent",
+          "basal_spur_orientation": "horizontal"
+        }
+      },
+
+      "buccopharyngeal": {},
+      "specialized_characters": {}
+    }
   }
 }
