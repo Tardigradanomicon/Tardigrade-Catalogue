@@ -160,21 +160,337 @@ footer {
    TAXONOMY PAGES — Tardigrada.html
    ========================================================= */
 
-/* 
-   Put the Tardigrada.html styles here.
-   This is where the expandable taxonomy tree lives.
-*/
+* { box-sizing: border-box; } body { margin: 0; font-family: Arial, Helvetica,
+sans-serif; color: #263238; background-color: #f7f8f7; } header {
+background-color: white; border-bottom: 1px solid #d9dddd; padding: 0 8%;
+height: 70px; display: flex; align-items: center; justify-content:
+space-between; } .logo { font-size: 20px; font-weight: 600; color: #263238;
+text-decoration: none; } nav a { margin-left: 30px; text-decoration: none;
+color: #546266; font-size: 15px; } nav a:hover { color: #2f7662; } main {
+max-width: 1000px; margin: 0 auto; padding: 55px 30px 90px; } .breadcrumb {
+font-size: 14px; margin-bottom: 35px; color: #718083; } .breadcrumb a { color:
+#2f7662; text-decoration: none; } .taxon-header { background-color: white;
+border: 1px solid #d9dddd; border-radius: 6px; padding: 35px 40px;
+margin-bottom: 30px; } .rank { text-transform: uppercase; font-size: 13px;
+letter-spacing: 1px; color: #6c7a7d; margin-bottom: 8px; } h1 { font-size: 38px;
+font-weight: 500; margin: 0 0 18px; } .description { color: #596669;
+line-height: 1.7; max-width: 800px; } .section { background-color: white;
+border: 1px solid #d9dddd; border-radius: 6px; padding: 30px 40px;
+margin-bottom: 25px; } .section h2 { font-size: 21px; font-weight: 500;
+margin-top: 0; padding-bottom: 12px; border-bottom: 1px solid #e1e5e4; } /*
+TAXONOMY TREE */ .taxonomy { margin-top: 10px; } .taxon { margin: 4px 0; }
+.taxon-button { background: none; border: none; font-family: inherit; font-size:
+17px; color: #2f7662; cursor: pointer; padding: 8px 5px; text-align: left; }
+.rank-label { color: #687477; font-size: 14px; margin-right: 4px; } .authority {
+color: #687477; font-size: 14px; margin-left: 5px; } .species-count { color:
+#7a8587; font-size: 14px; margin-left: 5px; } .taxon-button:hover {
+background-color: #f1f5f3; } .arrow { display: inline-block; width: 20px;
+font-size: 13px; } .children { display: none; margin-left: 25px; border-left:
+1px solid #d9dddd; padding-left: 15px; } .children.open { display: block; } /*
+SPECIES LINKS */ .species { display: block; padding: 8px 5px; color: #2f7662;
+text-decoration: none; font-size: 16px; } .species:hover { background-color:
+#f1f5f3; } footer { border-top: 1px solid #d9dddd; background-color: white;
+padding: 25px 8%; color: #7a8587; font-size: 14px; text-align: center; }
 
 
 /* =========================================================
-   SPECIES PAGES — Anisonyches-deliquus.html
+   SPECIES PAGES
    ========================================================= */
 
-/*
-   Put your species-page styles here.
-   This is where species-intro, data-table,
-   diagnostic-note, morphology subsections, etc. live.
-*/
+
+/* Breadcrumb */
+
+.breadcrumb {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 2.5rem;
+}
+
+.breadcrumb a {
+    color: #496b68;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    margin: 0 0.35rem;
+    color: #999;
+}
+
+
+
+/* Species introduction */
+
+.species-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 3rem;
+    align-items: start;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 3rem;
+}
+
+.species-heading {
+    padding-top: 1rem;
+}
+
+.species-heading .rank-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    color: #777;
+    margin-bottom: 0.5rem;
+}
+
+.species-heading h1 {
+    font-size: 2.6rem;
+    font-weight: 500;
+    margin: 0 0 1rem 0;
+}
+
+.classification {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.classification span {
+    margin: 0 0.35rem;
+    color: #aaa;
+}
+
+
+
+/* Species image */
+
+.species-image {
+    margin: 0;
+}
+
+.species-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+}
+
+.image-caption {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #666;
+    margin-top: 0.7rem;
+}
+
+.image-credit {
+    color: #888;
+}
+
+
+
+/* Main sections */
+
+.content-section {
+    max-width: 900px;
+    margin-bottom: 4rem;
+}
+
+.section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.65rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 1.55rem;
+    font-weight: 500;
+}
+
+.section-number {
+    font-size: 0.72rem;
+    color: #888;
+    letter-spacing: 0.08em;
+}
+
+
+
+/* Section introduction */
+
+.section-intro {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+
+
+/* Tables */
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+.data-table th,
+.data-table td {
+    text-align: left;
+    padding: 0.75rem 0.9rem;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.data-table thead th {
+    font-weight: 600;
+    color: #444;
+    background: #f5f5f3;
+    border-top: 1px solid #ddd;
+}
+
+.data-table tbody th {
+    width: 30%;
+    font-weight: 500;
+    color: #444;
+}
+
+
+
+/* Diagnostic note */
+
+.diagnostic-note {
+    margin-top: 1.5rem;
+    padding: 1rem 1.2rem;
+    border-left: 3px solid #6d8d88;
+    background: #f6f8f7;
+}
+
+.diagnostic-note strong {
+    font-size: 0.9rem;
+}
+
+.diagnostic-note p {
+    margin: 0.5rem 0 0;
+}
+
+
+
+/* Expandable morphology subsections */
+
+.subsection {
+    border-top: 1px solid #ddd;
+}
+
+.subsection:last-child {
+    border-bottom: 1px solid #ddd;
+}
+
+.subsection summary {
+    cursor: pointer;
+    padding: 1rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #3f5f5c;
+    list-style: none;
+}
+
+.subsection summary::-webkit-details-marker {
+    display: none;
+}
+
+.subsection summary::before {
+    content: "›";
+    display: inline-block;
+    width: 1.3rem;
+    color: #888;
+    transition: transform 0.15s ease;
+}
+
+.subsection[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.subsection > *:not(summary) {
+    margin-left: 1.3rem;
+}
+
+.subsection p,
+.subsection ul,
+.subsection table,
+.subsection h3 {
+    margin-bottom: 1.2rem;
+}
+
+.subsection h3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+
+/* Illustration placeholder */
+
+.illustration-placeholder {
+    margin: 2rem 0;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #bbb;
+    background: #fafafa;
+    color: #888;
+    text-align: center;
+}
+
+.illustration-placeholder p {
+    margin: 0;
+}
+
+
+
+/* References */
+
+.reference {
+    margin-bottom: 1.5rem;
+}
+
+.reference p {
+    margin: 0.3rem 0;
+}
+
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+    .species-intro {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .species-heading h1 {
+        font-size: 2rem;
+    }
+
+    .species-image {
+        max-width: 450px;
+    }
+
+    .data-table {
+        font-size: 0.85rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 0.6rem;
+    }
+
+}
 
 
 /* =========================================================
