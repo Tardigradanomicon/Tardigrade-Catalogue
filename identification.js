@@ -687,25 +687,10 @@ function recordAnswer(key, value, button) {
 
     setNestedValue(observations, key, value);
 
-    // Remove selection from the other buttons belonging
-    // to this question.
-    const parent =
-        button.closest(".identifier-options");
-
-    if (parent) {
-
-        parent
-            .querySelectorAll("button")
-            .forEach(btn => {
-
-                btn.classList.remove("selected");
-
-            });
-
-    }
-
-    // Make the selected answer visibly darker.
-    button.classList.add("selected");
+    // Note: we no longer hand-toggle classes here. The single
+    // restoreSelectedButtons() call inside updateConditionalQuestions()
+    // is now the ONLY thing that decides which buttons look selected,
+    // so there's one source of truth instead of two competing ones.
 
     updateConditionalQuestions();
 
@@ -773,6 +758,57 @@ function getNestedValue(object, path) {
 
 
 // ==================================================
+// FLATTEN OBSERVATIONS
+//
+// Answers to nested questions (cirri.*, legs.<leg>.*) are stored
+// as real nested objects, e.g. observations.legs.I.claws = 4.
+// speciesMatches() needs each individual leaf answer as its own
+// dotted-path key (e.g. "legs.I.claws") so it can be checked one
+// character at a time against the species data. This walks the
+// observations tree and produces exactly that.
+//
+// Arrays (multi-select answers like ecological_association) are
+// treated as leaves and are NOT descended into.
+// ==================================================
+
+function flattenObservations(object, prefix = "") {
+
+    let flat = {};
+
+    for (const key in object) {
+
+        const value = object[key];
+
+        const fullKey =
+            prefix ? `${prefix}.${key}` : key;
+
+        if (
+            value !== null &&
+            typeof value === "object" &&
+            !Array.isArray(value)
+        ) {
+
+            Object.assign(
+                flat,
+                flattenObservations(value, fullKey)
+            );
+
+        }
+
+        else {
+
+            flat[fullKey] = value;
+
+        }
+
+    }
+
+    return flat;
+
+}
+
+
+// ==================================================
 // CONDITIONAL QUESTIONS
 // ==================================================
 
@@ -784,6 +820,14 @@ function updateConditionalQuestions() {
     updateClavaeQuestion();
     updateOtherCirriQuestion();
     updateSensoryQuestion();
+
+    // Resync every button's "selected" class exactly once, after
+    // all follow-up sections above have finished rebuilding their
+    // HTML. Previously each of the six functions above called this
+    // itself, meaning a single click could trigger up to six full
+    // -page re-syncs back to back — wasteful, and the likely source
+    // of the selection state looking glitchy/inconsistent.
+    restoreSelectedButtons();
 
 }
 
@@ -886,8 +930,6 @@ function updateEnvironmentQuestion() {
 
     }
 
-    restoreSelectedButtons();
-
 }
 
 
@@ -964,8 +1006,6 @@ function updateEyeQuestion() {
 
     }
 
-    restoreSelectedButtons();
-
 }
 
 
@@ -1028,8 +1068,6 @@ function updatePlateQuestion() {
         container.innerHTML = "";
 
     }
-
-    restoreSelectedButtons();
 
 }
 
@@ -1099,8 +1137,6 @@ function updateClavaeQuestion() {
 
     }
 
-    restoreSelectedButtons();
-
 }
 
 
@@ -1162,8 +1198,6 @@ function updateOtherCirriQuestion() {
         container.innerHTML = "";
 
     }
-
-    restoreSelectedButtons();
 
 }
 
@@ -1227,8 +1261,6 @@ function updateSensoryQuestion() {
 
     }
 
-    restoreSelectedButtons();
-
 }
 
 
@@ -1273,22 +1305,7 @@ function toggleMultiAnswer(key, value, button) {
 
         observations[key] = ["unknown"];
 
-        const parent =
-            button.closest(".identifier-options");
-
-        if (parent) {
-
-            parent
-                .querySelectorAll("button")
-                .forEach(btn => {
-
-                    btn.classList.remove("selected");
-
-                });
-
-        }
-
-        button.classList.add("selected");
+        restoreSelectedButtons();
 
         return;
 
@@ -1310,17 +1327,15 @@ function toggleMultiAnswer(key, value, button) {
 
         observations[key].push(value);
 
-        button.classList.add("selected");
-
     }
 
     else {
 
         observations[key].splice(index, 1);
 
-        button.classList.remove("selected");
-
     }
+
+    restoreSelectedButtons();
 
 }
 
@@ -1484,10 +1499,20 @@ function findMatches() {
 
 function speciesMatches(speciesID, observations) {
 
-    for (const key in observations) {
+    // Flatten first: nested answers (cirri.*, legs.<leg>.*) live as
+    // real nested objects in `observations`, so a plain `for...in`
+    // over the top level would only ever see keys like "legs" or
+    // "cirri" pointing at whole objects — never the individual
+    // leaf answers like "legs.I.claws" that getSpeciesCharacter()
+    // actually knows how to look up. That mismatch was silently
+    // failing every species with any leg/cirrus answer recorded.
+    const flatObservations =
+        flattenObservations(observations);
+
+    for (const key in flatObservations) {
 
         const observedValue =
-            observations[key];
+            flatObservations[key];
 
 
         // ------------------------------------------
