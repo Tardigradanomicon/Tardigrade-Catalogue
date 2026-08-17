@@ -82,7 +82,8 @@
 
     "claw_accessory_points": true
   }
-}
+},
+
 "anisonyches-diakidius": {
   "scientific_name": "Anisonyches diakidius",
   "authority": "Pollock, 1975",
@@ -143,50 +144,40 @@
       "I": {
         "claws": 4,
         "sensory_spine": false,
-        "papilla": false
+        "anterior_papilla": false,
+        "claw_arrangement": "progressively_longer_inner_to_outer",
+        "basal_spur_arrangement": "widely_divergent",
+        "basal_spur_orientation": "horizontal"
       },
 
       "II": {
         "claws": 4,
         "sensory_spine": false,
-        "papilla": false
+        "anterior_papilla": false,
+        "claw_arrangement": "progressively_longer_inner_to_outer",
+        "basal_spur_arrangement": "widely_divergent",
+        "basal_spur_orientation": "horizontal"
       },
 
       "III": {
         "claws": 4,
         "sensory_spine": false,
-        "papilla": false
+        "anterior_papilla": false,
+        "claw_arrangement": "progressively_longer_inner_to_outer",
+        "basal_spur_arrangement": "widely_divergent",
+        "basal_spur_orientation": "horizontal"
       },
 
       "IV": {
         "claws": 3,
         "sensory_spine": false,
-        "papilla": true
+        "anterior_papilla": true,
+        "claw_arrangement": "approximately_equal",
+        "basal_spur_arrangement": "widely_divergent",
+        "basal_spur_orientation": "horizontal"
       }
     },
 
-    "claws": {
-
-      "I_III": {
-        "number_per_leg": 4,
-        "arrangement": "progressively longer from inner to outer",
-        "basal_spurs": "widely divergent and horizontally directed"
-      },
-
-      "IV": {
-        "number_per_leg": 3,
-        "arrangement": "approximately equal in length"
-      },
-
-      "curvature": "slightly curved apically",
-
-      "accessory_points": {
-        "present": true,
-        "locations": [
-          "medial claws of legs I–III",
-          "inner two claws of leg IV"
-        ]
-      }
-    }
+    "claw_accessory_points": true
   }
 }
