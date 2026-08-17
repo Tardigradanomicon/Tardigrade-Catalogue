@@ -1726,6 +1726,22 @@ function getSpeciesCharacter(species, key) {
     }
 
 
+    if (key === "plate_locations") {
+
+        if (
+            species.plates &&
+            species.plates.locations !== undefined
+        ) {
+
+            return species.plates.locations;
+
+        }
+
+        return undefined;
+
+    }
+
+
     // ------------------------------------------
     // CLAVAE
     // ------------------------------------------
@@ -1789,6 +1805,91 @@ function getSpeciesCharacter(species, key) {
         }
 
         return types;
+
+    }
+
+
+    // ------------------------------------------
+    // OTHER CIRRI (top-level Q10 — distinct from
+    // the per-cirrus "cirri.<name>" keys below)
+    // ------------------------------------------
+
+    if (key === "other_cirri") {
+
+        if (
+            species.cirri &&
+            species.cirri.other !== undefined
+        ) {
+
+            return normalizePresentValue(
+                species.cirri.other
+            );
+
+        }
+
+        return undefined;
+
+    }
+
+
+    if (key === "other_cirri_locations") {
+
+        if (
+            species.cirri &&
+            species.cirri.other &&
+            species.cirri.other.locations !== undefined
+        ) {
+
+            return species.cirri.other.locations;
+
+        }
+
+        return undefined;
+
+    }
+
+
+    // ------------------------------------------
+    // SENSORY STRUCTURES (top-level Q11 — distinct
+    // from the per-leg "legs.<leg>.sensory_structures")
+    // ------------------------------------------
+
+    if (key === "sensory_structures") {
+
+        if (
+            species.sensory_structures &&
+            typeof species.sensory_structures === "object"
+        ) {
+
+            return species.sensory_structures.present;
+
+        }
+
+        if (
+            typeof species.sensory_structures === "boolean"
+        ) {
+
+            return species.sensory_structures;
+
+        }
+
+        return undefined;
+
+    }
+
+
+    if (key === "sensory_locations") {
+
+        if (
+            species.sensory_structures &&
+            species.sensory_structures.locations !== undefined
+        ) {
+
+            return species.sensory_structures.locations;
+
+        }
+
+        return undefined;
 
     }
 
