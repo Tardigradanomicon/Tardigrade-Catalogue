@@ -1012,6 +1012,12 @@ footer {
         text-align: left;
     }
 
+      .identifier-options button.selected {
+       background-color: #555;
+       color: white;
+       border-color: #555;
+   }
+
     .identifier-morphology-question {
         padding: 1rem;
     }
