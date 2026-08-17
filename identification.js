@@ -359,7 +359,7 @@ function choiceButton(label, key, value) {
             class="identifier-choice-button ${selected ? "selected" : ""}"
             data-key="${key}"
             data-value="${String(value)}"
-            onclick="recordAnswer('${key}', ${JSON.stringify(value)}, this)"
+            onclick='recordAnswer(${JSON.stringify(key)}, ${JSON.stringify(value)}, this)'
         >
             ${label}
         </button>
