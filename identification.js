@@ -869,7 +869,7 @@ function updateEnvironmentQuestion() {
                 <div class="identifier-options">
 
                     ${values.map(item =>
-                        multiButton(
+                        choiceButton(
                             item[0],
                             "ecological_association",
                             item[1]
