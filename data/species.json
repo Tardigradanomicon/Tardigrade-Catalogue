@@ -246,239 +246,245 @@
         }
       }
     }
-  }
-}
-
-
-"anisonyches-eleutherensis": {
-  "scientific_name": "Anisonyches eleutherensis",
-  "authority": "Bartels, Fontoura & Nelson, 2018",
-  "page": "species/Anisonyches-eleutherensis.html",
-
-  "taxonomy": {
-    "phylum": "Tardigrada",
-    "class": "Heterotardigrada",
-    "order": "Arthrotardigrada",
-    "family": "Anisonychidae",
-    "genus": "Anisonyches"
   },
 
-  "identification": {
 
-    "environment": "marine",
+  "anisonyches-eleutherensis": {
+    "scientific_name": "Anisonyches eleutherensis",
+    "authority": "Bartels, Fontoura & Nelson, 2018",
+    "page": "species/Anisonyches-eleutherensis.html",
 
-    "body_length_um": 193,
-
-    "cuticle": {
-      "color": "transparent",
-      "pattern": "none",
-      "surface": "smooth",
-      "ornamentation": false,
-      "punctations": false
+    "taxonomy": {
+      "phylum": "Tardigrada",
+      "class": "Heterotardigrada",
+      "order": "Arthrotardigrada",
+      "family": "Anisonychidae",
+      "genus": "Anisonyches"
     },
 
-    "eyes": {
-      "present": true,
-      "color": "black",
-      "shape": "round",
-      "size": "large",
-      "position": "anterior_to_lateral_cirri"
-    },
+    "identification": {
 
-    "plates": {
-      "present": false
-    },
+      "environment": "marine",
 
-    "clavae": {
-      "present": true,
-      "primary": true,
-      "primary_shape": "ovoid",
-      "secondary": true,
-      "secondary_shape": "lens_shaped"
-    },
+      "body_length_um": 193,
+      "body_width_um": 57,
 
-    "cirri": {
-
-      "median_cephalic": {
-        "present": true,
-        "length_um": 2.5
+      "cuticle": {
+        "color": "transparent",
+        "pattern": "none",
+        "surface": "smooth",
+        "ornamentation": false,
+        "punctations": false
       },
 
-      "internal_cephalic": {
+      "eyes": {
         "present": true,
-        "length_um": 7.4
+        "color": "black",
+        "shape": "round",
+        "size": "large",
+        "position": "anterior_to_lateral_cirri"
       },
 
-      "external_cephalic": {
-        "present": true,
-        "length_um": 5.0
+      "plates": {
+        "present": false
       },
 
-      "lateral": {
+      "clavae": {
         "present": true,
-        "cirrus_A": {
+        "primary": true,
+        "primary_shape": "ovoid",
+        "secondary": true,
+        "secondary_shape": "lens_shaped"
+      },
+
+      "cirri": {
+
+        "median_cephalic": {
           "present": true,
-          "length_um": 10.5,
+          "length_um": 2.5
+        },
+
+        "internal_cephalic": {
+          "present": true,
+          "length_um": 7.4
+        },
+
+        "external_cephalic": {
+          "present": true,
+          "length_um": 5.0
+        },
+
+        "lateral": {
+          "present": true,
+          "cirrus_A": {
+            "present": true,
+            "length_um": 10.5,
+            "basal_peduncle": "accordion_shaped"
+          }
+        },
+
+        "cirrus_E": {
+          "present": true,
+          "length_um": 15.2,
+          "location": "dorsal_above_leg_IV",
           "basal_peduncle": "accordion_shaped"
+        },
+
+        "other": {
+          "present": false,
+          "locations": []
         }
       },
 
-      "cirrus_E": {
+      "sensory_structures": {
         "present": true,
-        "length_um": 15.2,
-        "location": "dorsal_above_leg_IV",
-        "basal_peduncle": "accordion_shaped"
+        "locations": [
+          "papilla_at_base_of_leg_IV"
+        ]
       },
 
-      "other": {
-        "present": false,
-        "locations": []
-      }
-    },
+      "head": {
+        "shape": "conical"
+      },
 
-    "sensory_structures": {
-      "present": true,
-      "locations": [
-        "papilla_at_base_of_leg_IV"
-      ]
-    },
-
-    "head": {
-      "shape": "conical"
-    },
-
-    "bucco_pharyngeal_apparatus": {
-      "present": true,
-      "optional": true,
-      "buccal_cavity": {
+      "bucco_pharyngeal_apparatus": {
         "present": true,
-        "thickened_rings": 2,
-        "thickened_rings_function": "likely_teeth"
+        "optional": true,
+
+        "buccal_cavity": {
+          "present": true,
+          "thickened_rings": 2,
+          "thickened_rings_function": "likely_teeth"
+        },
+
+        "buccal_tube_length_um": 35.9,
+
+        "pharyngeal_bulb": {
+          "present": true,
+          "length_um": 15.2,
+          "width_um": 12.8,
+          "placoids": 3,
+          "apophyses": true
+        },
+
+        "stylets": {
+          "present": true,
+          "length_um": 43.8,
+          "furca_shape": "T_shaped",
+          "supports": false
+        }
       },
-      "buccal_tube_length_um": 35.9,
-      "pharyngeal_bulb": {
+
+      "legs": {
+
+        "I": {
+          "claws": 4,
+          "claw_arrangement": "medial_larger_than_outer_and_innermost",
+          "accessory_points": true,
+          "accessory_point_locations": [
+            "apical_all_claws"
+          ],
+          "sensory_structures": {
+            "present": false
+          },
+          "basal_spur_arrangement": "narrowly_divergent",
+          "basal_spur_orientation": "downward",
+          "claw_curvature": "strongly_curved",
+          "claw_terminal_angle_degrees": 90
+        },
+
+        "II": {
+          "claws": 4,
+          "claw_arrangement": "medial_larger_than_outer_and_innermost",
+          "accessory_points": true,
+          "accessory_point_locations": [
+            "apical_all_claws"
+          ],
+          "sensory_structures": {
+            "present": false
+          },
+          "basal_spur_arrangement": "narrowly_divergent",
+          "basal_spur_orientation": "downward",
+          "claw_curvature": "strongly_curved",
+          "claw_terminal_angle_degrees": 90
+        },
+
+        "III": {
+          "claws": 4,
+          "claw_arrangement": "medial_larger_than_outer_and_innermost",
+          "accessory_points": true,
+          "accessory_point_locations": [
+            "apical_all_claws"
+          ],
+          "sensory_structures": {
+            "present": false
+          },
+          "basal_spur_arrangement": "narrowly_divergent",
+          "basal_spur_orientation": "downward",
+          "claw_curvature": "strongly_curved",
+          "claw_terminal_angle_degrees": 90
+        },
+
+        "IV": {
+          "claws": 3,
+          "claw_arrangement": "medial_larger_than_outer_and_innermost",
+          "accessory_points": true,
+          "accessory_point_locations": [
+            "apical_all_claws"
+          ],
+          "sensory_structures": {
+            "present": false
+          },
+          "basal_spur_arrangement": "narrowly_divergent",
+          "basal_spur_orientation": "downward",
+          "claw_curvature": "strongly_curved",
+          "claw_terminal_angle_degrees": 90
+        }
+      },
+
+      "papillae": {
         "present": true,
-        "length_um": 15.2,
-        "width_um": 12.8,
-        "placoids": 3,
-        "apophyses": true
-      },
-      "stylets": {
-        "present": true,
-        "length_um": 43.8,
-        "furca_shape": "T_shaped",
-        "supports": false
-      }
-    },
-
-    "legs": {
-
-      "I": {
-        "claws": 4,
-        "claw_arrangement": "medial_larger_than_outer_and_innermost",
-        "accessory_points": true,
-        "accessory_point_locations": [
-          "apical_all_claws"
+        "locations": [
+          "base_of_legs_IV"
         ],
-        "sensory_structures": {
-          "present": false
-        },
-        "basal_spur_arrangement": "narrowly_divergent",
-        "basal_spur_orientation": "downward",
-        "claw_curvature": "strongly_curved",
-        "claw_terminal_angle_degrees": 90
+        "shape": "ovoid",
+        "length_um": 3.7
       },
 
-      "II": {
-        "claws": 4,
-        "claw_arrangement": "medial_larger_than_outer_and_innermost",
-        "accessory_points": true,
-        "accessory_point_locations": [
-          "apical_all_claws"
-        ],
-        "sensory_structures": {
-          "present": false
+      "reproductive_structures": {
+        "female_gonopore": {
+          "present": true,
+          "shape": "rosette_like",
+          "surrounding_membranes": 6
         },
-        "basal_spur_arrangement": "narrowly_divergent",
-        "basal_spur_orientation": "downward",
-        "claw_curvature": "strongly_curved",
-        "claw_terminal_angle_degrees": 90
+
+        "seminal_receptacles": {
+          "present": true,
+          "shape": "large_oblong",
+          "location": "lateral_to_gonopore"
+        }
       },
 
-      "III": {
-        "claws": 4,
-        "claw_arrangement": "medial_larger_than_outer_and_innermost",
-        "accessory_points": true,
-        "accessory_point_locations": [
-          "apical_all_claws"
-        ],
-        "sensory_structures": {
-          "present": false
-        },
-        "basal_spur_arrangement": "narrowly_divergent",
-        "basal_spur_orientation": "downward",
-        "claw_curvature": "strongly_curved",
-        "claw_terminal_angle_degrees": 90
+      "eggs": {
+        "observed": false
       },
 
-      "IV": {
-        "claws": 3,
-        "claw_arrangement": "medial_larger_than_outer_and_innermost",
-        "accessory_points": true,
-        "accessory_point_locations": [
-          "apical_all_claws"
-        ],
-        "sensory_structures": {
-          "present": false
-        },
-        "basal_spur_arrangement": "narrowly_divergent",
-        "basal_spur_orientation": "downward",
-        "claw_curvature": "strongly_curved",
-        "claw_terminal_angle_degrees": 90
-      }
-    },
-
-    "papillae": {
-      "present": true,
-      "locations": [
-        "base_of_legs_IV"
+      "diagnostic_features": [
+        "ovoid_primary_clava",
+        "papilla_only_on_leg_IV",
+        "no_sensory_organs_on_legs_I_III",
+        "Mauritanius_type_claws",
+        "narrowly_divergent_downward_basal_spurs",
+        "all_claws_with_apical_accessory_point",
+        "medial_claws_larger_than_outer_and_innermost_claws",
+        "long_cirrus_A_with_accordion_shaped_base",
+        "long_cirrus_E_with_accordion_shaped_base"
       ],
-      "shape": "ovoid",
-      "length_um": 3.7
-    },
 
-    "reproductive_structures": {
-      "female_gonopore": {
-        "present": true,
-        "shape": "rosette_like",
-        "surrounding_membranes": 6
-      },
-      "seminal_receptacles": {
-        "present": true,
-        "shape": "large_oblong",
-        "location": "lateral_to_gonopore"
+      "dna": {
+        "described": false,
+        "genbank": null
       }
-    },
-
-    "eggs": {
-      "observed": false
-    },
-
-    "diagnostic_features": [
-      "ovoid_primary_clava",
-      "papilla_only_on_leg_IV",
-      "no_sensory_organs_on_legs_I_III",
-      "Mauritanius_type_claws",
-      "narrowly_divergent_downward_basal_spurs",
-      "all_claws_with_apical_accessory_point",
-      "medial_claws_larger_than_outer_and_innermost_claws",
-      "long_cirrus_A_with_accordion_shaped_base",
-      "long_cirrus_E_with_accordion_shaped_base"
-    ],
-
-    "dna": {
-      "described": false,
-      "genbank": null
     }
   }
 }
