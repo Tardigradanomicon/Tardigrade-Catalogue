@@ -134,7 +134,7 @@ function toggleTaxon(button) {
  * Loads JSON data and renders tree on page load.
  */
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("data/taxonomy.json")
+    fetch("online-json-editor.json")
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -147,6 +147,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // If root has children (e.g. Class nodes under Phylum), render each top-level child
             if (data.children && data.children.length > 0) {
+                // Desired order for top-level classes
+                const customClassOrder = ["EUTARDIGRADA", "HETEROTARDIGRADA", "MESOTARDIGRADA"];
+
+                // Sort children based on the custom order list
+                data.children.sort((a, b) => {
+                    const indexA = customClassOrder.indexOf(a.name.toUpperCase());
+                    const indexB = customClassOrder.indexOf(b.name.toUpperCase());
+                    
+                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                    if (indexA !== -1) return -1;
+                    if (indexB !== -1) return 1;
+                    return a.name.localeCompare(b.name);
+                });
+
                 data.children.forEach((topLevelNode) => {
                     container.appendChild(createTaxonNode(topLevelNode));
                 });
