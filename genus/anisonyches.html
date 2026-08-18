@@ -54,46 +54,46 @@
        HEADER
     ================================================== */
 
-    .site-header {
-        border-bottom: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.88);
-        backdrop-filter: blur(12px);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-    }
+   <header>
 
-    .header-inner {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 18px 28px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-    }
+    <a class="logo" href="../index.html">
+        Tardigrade Catalogue
+    </a>
 
-    .site-title {
-        color: var(--text);
-        text-decoration: none;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        font-size: 1rem;
-    }
+    <nav>
 
-    .breadcrumb {
-        color: var(--muted);
-        font-size: 0.88rem;
-    }
+        <div class="dropdown">
 
-    .breadcrumb a {
-        color: var(--accent);
-        text-decoration: none;
-    }
+            <button class="dropdown-button">
+                Browse
+                <span class="dropdown-arrow">⌄</span>
+            </button>
 
-    .breadcrumb a:hover {
-        text-decoration: underline;
-    }
+            <div class="dropdown-menu">
+
+                <a href="../tardigrada.html">
+                    Taxonomy
+                </a>
+
+                <a href="../anatomy.html">
+                    Anatomy
+                </a>
+
+                <a href="../identification.html">
+                    Identification
+                </a>
+
+            </div>
+
+        </div>
+
+        <a href="../about.html">
+            About
+        </a>
+
+    </nav>
+
+</header>
 
 
     /* ==================================================
