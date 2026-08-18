@@ -134,7 +134,7 @@ function toggleTaxon(button) {
  * Loads JSON data and renders tree on page load.
  */
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("taxonomy.json")
+    fetch("data/taxonomy.json")
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
