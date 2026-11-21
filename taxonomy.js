@@ -134,7 +134,7 @@ function toggleTaxon(button) {
  * Loads JSON data and renders tree on page load.
  */
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("online-json-editor.json")
+    fetch("tardigrada.json")
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
