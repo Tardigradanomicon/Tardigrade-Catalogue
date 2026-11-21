@@ -133,46 +133,63 @@ function toggleTaxon(button) {
 /**
  * Loads JSON data and renders tree on page load.
  */
-document.addEventListener("DOMContentLoaded", () => {
-    fetch("tardigrada.json")
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then((data) => {
-            const container = document.getElementById("taxonomy-tree");
-            if (!container) return;
+document.addEventListener("DOMContentLoaded", async () => {
+    const container = document.getElementById("taxonomy-tree");
 
-            // If root has children (e.g. Class nodes under Phylum), render each top-level child
-            if (data.children && data.children.length > 0) {
-                // Desired order for top-level classes
-                const customClassOrder = ["EUTARDIGRADA", "HETEROTARDIGRADA", "MESOTARDIGRADA"];
+    if (!container) {
+        console.error("ERROR: Cannot find element #taxonomy-tree");
+        return;
+    }
 
-                // Sort children based on the custom order list
-                data.children.sort((a, b) => {
-                    const indexA = customClassOrder.indexOf(a.name.toUpperCase());
-                    const indexB = customClassOrder.indexOf(b.name.toUpperCase());
-                    
-                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-                    if (indexA !== -1) return -1;
-                    if (indexB !== -1) return 1;
-                    return a.name.localeCompare(b.name);
-                });
+    const jsonPath = "online-json-editor.json";
 
-                data.children.forEach((topLevelNode) => {
-                    container.appendChild(createTaxonNode(topLevelNode));
-                });
-            } else {
-                container.appendChild(createTaxonNode(data));
-            }
-        })
-        .catch((error) => {
-            console.error("Error loading taxonomy JSON:", error);
-            const container = document.getElementById("taxonomy-tree");
-            if (container) {
-                container.textContent = "Failed to load taxonomy data.";
-            }
+    try {
+        console.log("Attempting to load:", jsonPath);
+        console.log("Page location:", window.location.href);
+
+        const response = await fetch(jsonPath);
+
+        console.log("HTTP status:", response.status);
+        console.log("Response URL:", response.url);
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: Could not find JSON file.`);
+        }
+
+        const data = await response.json();
+
+        console.log("JSON successfully loaded:", data);
+
+        if (!data || !Array.isArray(data.children)) {
+            throw new Error("JSON structure is missing its children array.");
+        }
+
+        const customClassOrder = [
+            "EUTARDIGRADA",
+            "HETEROTARDIGRADA",
+            "MESOTARDIGRADA"
+        ];
+
+        data.children.sort((a, b) => {
+            const indexA = customClassOrder.indexOf(a.name.toUpperCase());
+            const indexB = customClassOrder.indexOf(b.name.toUpperCase());
+
+            if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+
+            return a.name.localeCompare(b.name);
         });
+
+        data.children.forEach(node => {
+            container.appendChild(createTaxonNode(node));
+        });
+
+        console.log("Taxonomy successfully rendered!");
+
+    } catch (error) {
+        console.error("TAXONOMY LOADING ERROR:", error);
+        container.textContent = `Error: ${error.message}`;
+    }
+});
 });
