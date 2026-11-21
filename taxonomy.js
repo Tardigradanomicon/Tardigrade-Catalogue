@@ -192,4 +192,3 @@ document.addEventListener("DOMContentLoaded", async () => {
         container.textContent = `Error: ${error.message}`;
     }
 });
-});
